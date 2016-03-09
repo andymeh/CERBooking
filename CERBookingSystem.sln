@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CERBookingSystemDAL", "CERB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CERBookingSystem", "CERBookingSystem\CERBookingSystem.csproj", "{1337366A-B0BD-455B-ABC3-6096AB412D08}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CERBookingSystemBLL", "CERBookingSystemBLL\CERBookingSystemBLL.csproj", "{6EF89EF2-D123-46F0-8B1F-B2C5EBE49A5E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{1337366A-B0BD-455B-ABC3-6096AB412D08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1337366A-B0BD-455B-ABC3-6096AB412D08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1337366A-B0BD-455B-ABC3-6096AB412D08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EF89EF2-D123-46F0-8B1F-B2C5EBE49A5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EF89EF2-D123-46F0-8B1F-B2C5EBE49A5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EF89EF2-D123-46F0-8B1F-B2C5EBE49A5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EF89EF2-D123-46F0-8B1F-B2C5EBE49A5E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
