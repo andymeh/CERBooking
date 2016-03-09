@@ -18,6 +18,25 @@ namespace CERBookingSystemBLL
             }
         }
 
+        public Train getTrain(int trainId)
+        {
+            Train train = new Train();
+            using (var dc = new DALDataContext())
+            {
+                train = dc.Trains.FirstOrDefault(x => x.TrainId == trainId);
+            }
+            return train;
+        }
+
+        public void editTrain(Train newTrain)
+        {
+            using (var dc = new DALDataContext())
+            {
+                dc.Trains.ed
+                dc.SubmitChanges();
+            }
+        }
+
 
     }
 }
