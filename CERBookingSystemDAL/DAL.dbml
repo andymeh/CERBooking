@@ -1,1 +1,77 @@
-﻿
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CERDatabase" Class="DALDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=ANDY-PC;Initial Catalog=CERDatabase;Integrated Security=True" SettingsObjectName="CERBookingSystemDAL.Properties.Settings" SettingsPropertyName="CERDatabaseConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Booking" Member="Bookings">
+    <Type Name="Booking">
+      <Column Name="BookingId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TrainRouteId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NoInParty" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="TrainRoute_Booking" Member="TrainRoute" ThisKey="TrainRouteId" OtherKey="TrainRouteId" Type="TrainRoute" IsForeignKey="true" />
+      <Association Name="User_Booking" Member="User" ThisKey="UserId" OtherKey="UserId" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Cities" Member="Cities">
+    <Type Name="City">
+      <Column Name="CityId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CityName" Type="System.String" DbType="NChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="City_Route" Member="Routes" ThisKey="CityId" OtherKey="Destination" Type="Route" />
+      <Association Name="City_Route1" Member="Routes1" ThisKey="CityId" OtherKey="Source" Type="Route" />
+      <Association Name="City_RouteStop" Member="RouteStops" ThisKey="CityId" OtherKey="CityId" Type="RouteStop" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Route" Member="Routes">
+    <Type Name="Route">
+      <Column Name="RouteId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Source" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Destination" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Distance" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DepartureTime" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Column Name="ArrivalTime" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Association Name="Route_RouteStop" Member="RouteStops" ThisKey="RouteId" OtherKey="RouteId" Type="RouteStop" />
+      <Association Name="Route_TrainRoute" Member="TrainRoutes" ThisKey="RouteId" OtherKey="RouteId" Type="TrainRoute" />
+      <Association Name="City_Route" Member="City" ThisKey="Destination" OtherKey="CityId" Type="City" IsForeignKey="true" />
+      <Association Name="City_Route1" Member="City1" ThisKey="Source" OtherKey="CityId" Type="City" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RouteStops" Member="RouteStops">
+    <Type Name="RouteStop">
+      <Column Name="RouteStopId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RouteId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CityId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ArrivalTime" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Column Name="DepartureTime" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Association Name="City_RouteStop" Member="City" ThisKey="CityId" OtherKey="CityId" Type="City" IsForeignKey="true" />
+      <Association Name="Route_RouteStop" Member="Route" ThisKey="RouteId" OtherKey="RouteId" Type="Route" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Train" Member="Trains">
+    <Type Name="Train">
+      <Column Name="TrainId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CapacityFirst" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CapacityEconomy" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Train_TrainRoute" Member="TrainRoutes" ThisKey="TrainId" OtherKey="TrainId" Type="TrainRoute" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TrainRoute" Member="TrainRoutes">
+    <Type Name="TrainRoute">
+      <Column Name="TrainRouteId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TrainId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RouteId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="FirstClassSeats" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EconomySeats" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="TrainRoute_Booking" Member="Bookings" ThisKey="TrainRouteId" OtherKey="TrainRouteId" Type="Booking" />
+      <Association Name="Route_TrainRoute" Member="Route" ThisKey="RouteId" OtherKey="RouteId" Type="Route" IsForeignKey="true" />
+      <Association Name="Train_TrainRoute" Member="Train" ThisKey="TrainId" OtherKey="TrainId" Type="Train" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Users" Member="Users">
+    <Type Name="User">
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Forename" Type="System.String" DbType="NChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Surname" Type="System.String" DbType="NChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NChar(200) NOT NULL" CanBeNull="false" />
+      <Association Name="User_Booking" Member="Bookings" ThisKey="UserId" OtherKey="UserId" Type="Booking" />
+    </Type>
+  </Table>
+</Database>

@@ -63,6 +63,9 @@
     <Build Include="Users.sql" />
     <Build Include="Route.sql" />
     <Build Include="Booking.sql" />
+    <Build Include="TrainRoute.sql" />
+    <Build Include="Cities.sql" />
+    <Build Include="RouteStops.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="CERDatabase.refactorlog" />
