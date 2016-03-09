@@ -1,9 +1,9 @@
-﻿using System;
+﻿using CERBookingSystemDAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CERBookingSystemDAL;
 
 namespace CERBookingSystemBLL
 {
@@ -11,7 +11,7 @@ namespace CERBookingSystemBLL
     {
         public void addTrain(Train newTrain)
         {
-            using(var dc = new DALDataContext())
+            using (var dc = new DALDataContext())
             {
                 dc.Trains.InsertOnSubmit(newTrain);
                 dc.SubmitChanges();
@@ -32,7 +32,7 @@ namespace CERBookingSystemBLL
         {
             using (var dc = new DALDataContext())
             {
-                dc.Trains.ed
+                //dc.Trains.ed
                 dc.SubmitChanges();
             }
         }
