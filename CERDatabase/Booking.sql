@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Booking]
 (
 	[BookingId] INT NOT NULL PRIMARY KEY, 
-    [UserId] INT NOT NULL, 
+    [UserId] NCHAR(30) NOT NULL, 
     [TrainRouteId] INT NOT NULL, 
     [NoInParty] INT NOT NULL, 
     CONSTRAINT [FK_Booking_TrainRoute] FOREIGN KEY ([TrainRouteId]) REFERENCES [TrainRoute]([TrainRouteId]),
