@@ -25,7 +25,6 @@ namespace CERBookingSystemBLL
             {
                 train = dc.Trains.FirstOrDefault(x => x.TrainId == trainId);
             }
-            int i = 0;
             return train;
         }
 
