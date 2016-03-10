@@ -7,44 +7,38 @@ using CERBookingSystem.Models;
 
 namespace CERBookingSystem.Controllers
 {
-    public class UserController : Controller
+    public class TrainRouteController : Controller
     {
-        // GET: User
+        // GET: TrainRoute
         public ActionResult Index()
         {
             return View();
         }
-
-        public ActionResult Register()
+        public ActionResult newTrain()
         {
             return View();
         }
-
-        public ActionResult Login()
+        public ActionResult newRoute()
         {
             return View();
         }
-
         [HttpPost]
-        public ActionResult Register(newUserModel newUser)
+        public ActionResult newTrain(newTrain train)
         {
             if (ModelState.IsValid)
             {
 
             }
-            return View(newUser);
+            return View(train);
         }
         [HttpPost]
-        public ActionResult Login(LoginViewModel login)
+        public ActionResult newRoute(newRoute route)
         {
             if (ModelState.IsValid)
             {
-                //get user from database
-                //if user in database, set authorisation token
 
-                //else return incorrect password error
             }
-            return View(login);
+            return View(route);
         }
     }
 }
