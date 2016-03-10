@@ -45,6 +45,7 @@
     <Compile Include="RouteBLL.cs" />
     <Compile Include="TrainBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TrainRoutes.cs" />
     <Compile Include="UserBLL.cs" />
   </ItemGroup>
   <ItemGroup>
