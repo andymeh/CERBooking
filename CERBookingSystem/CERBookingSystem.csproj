@@ -177,6 +177,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BookingModel.cs" />
+    <Compile Include="Models\ReportingModel.cs" />
     <Compile Include="Models\trainRoute.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
