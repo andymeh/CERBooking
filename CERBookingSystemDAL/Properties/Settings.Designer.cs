@@ -32,5 +32,16 @@ namespace CERBookingSystemDAL.Properties {
                 return ((string)(this["CERDatabaseConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=sqlserverkn.westeurope.cloudapp.azure.com;Initial Catalog=CERDatabase" +
+            ";User ID=ceruser;Password=sayplease1234")]
+        public string CERDatabaseConnectionString1 {
+            get {
+                return ((string)(this["CERDatabaseConnectionString1"]));
+            }
+        }
     }
 }
