@@ -1,0 +1,1 @@
+﻿CREATE LOGIN [andy] WITH PASSWORD = 'Graham@2015'

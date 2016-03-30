@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[TrainRoute]
 (
-	[TrainRouteId] INT NOT NULL PRIMARY KEY, 
+	[TrainRouteId] INT NOT NULL PRIMARY KEY IDENTITY, 
     [TrainId] INT NOT NULL, 
     [RouteId] INT NOT NULL, 
     [Date] DATETIME NOT NULL, 

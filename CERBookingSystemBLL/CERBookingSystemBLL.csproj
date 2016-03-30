@@ -42,10 +42,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookingBLL.cs" />
+    <Compile Include="CitiesBLL.cs" />
     <Compile Include="RouteBLL.cs" />
     <Compile Include="TrainBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TrainRoutes.cs" />
+    <Compile Include="TrainRouteBLL.cs" />
     <Compile Include="UserBLL.cs" />
   </ItemGroup>
   <ItemGroup>

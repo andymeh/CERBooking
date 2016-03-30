@@ -1,31 +1,101 @@
-﻿@{
+﻿@model CERBookingSystem.Models.SearchModel
+@{
     ViewBag.Title = "Home Page";
 }
+@using (Html.BeginForm("Search", "Home", FormMethod.Post, new { autocomplete = "off" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal jumbotron" style="padding-top:50px">
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-4">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.bookingDetails.sourceCityId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div id="prefetch">
+                        @Html.DropDownListFor(model => model.bookingDetails.sourceCityId, Model.CityListItems, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.bookingDetails.sourceCityId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group ">
+                    <div id="prefetch">
+                        @Html.DropDownListFor(model => model.bookingDetails.destinationCityId, Model.CityListItems, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.bookingDetails.destinationCityId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-4">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.bookingDetails.dateOutbound, new { htmlAttributes = new { @id= "datetimepicker4", @class = "form-control", @placeholder = "Depart" } })
+                        @Html.ValidationMessageFor(model => model.bookingDetails.dateOutbound, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.bookingDetails.dateReturn, new { htmlAttributes = new { @id = "datetimepicker5", @class = "form-control", @placeholder = "Return" } })
+                        @Html.ValidationMessageFor(model => model.bookingDetails.dateReturn, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.bookingDetails.firstClass, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.bookingDetails.firstClass, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.LabelFor(model => model.bookingDetails.firstClass, htmlAttributes: new { @class = "control-label col-md-2" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.bookingDetails.numberOfPassengers, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.bookingDetails.numberOfPassengers, Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.bookingDetails.numberOfPassengers, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Search" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+            @section scripts{
+                <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker4').datetimepicker({
+                    locale: 'en-GB',
+                    format: 'DD/MM/YYYY'
+                });
+                $('#datetimepicker5').datetimepicker({
+                    useCurrent: false,
+                    locale: 'en-GB',
+                    format: 'DD/MM/YYYY'
+                });
+                $("#datetimepicker4").on("dp.change", function (e) {
+                    $('#datetimepicker5').data("DateTimePicker").minDate(e.date);
+                });
+                $("#datetimepicker5").on("dp.change", function (e) {
+                    $('#datetimepicker4').data("DateTimePicker").maxDate(e.date);
+                });
+            });
+
+</script>
+            }

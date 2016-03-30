@@ -9,7 +9,7 @@ namespace CERBookingSystemBLL
 {
     public class TrainBLL
     {
-        public void addTrain(Train newTrain)
+        public static void addTrain(Train newTrain)
         {
             using (var dc = new DALDataContext())
             {
@@ -18,7 +18,7 @@ namespace CERBookingSystemBLL
             }
         }
 
-        public Train getTrain(int trainId)
+        public static Train getTrain(int trainId)
         {
             Train train = new Train();
             using (var dc = new DALDataContext())
@@ -28,7 +28,7 @@ namespace CERBookingSystemBLL
             return train;
         }
 
-        public void editTrain(Train newTrain)
+        public static void editTrain(Train newTrain)
         {
             using (var dc = new DALDataContext())
             {
@@ -37,6 +37,13 @@ namespace CERBookingSystemBLL
             }
         }
 
-
+        public static List<Train> getAllTrains()
+        {
+            using(var db = new DALDataContext())
+            {
+                List<Train> trains = db.Trains.AsEnumerable().ToList();
+                return trains;
+            }
+        }
     }
 }

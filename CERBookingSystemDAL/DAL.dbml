@@ -1,20 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CERDatabase" Class="DALDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=sqlserverkn.westeurope.cloudapp.azure.com;Initial Catalog=CERDatabase;User ID=ceruser" SettingsObjectName="CERBookingSystemDAL.Properties.Settings" SettingsPropertyName="CERDatabaseConnectionString1" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=sqlserverkn.westeurope.cloudapp.azure.com;Initial Catalog=CERDatabase;User ID=AdminAndy" SettingsObjectName="CERBookingSystemDAL.Properties.Settings" SettingsPropertyName="CERDatabaseConnectionString2" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Booking" Member="Bookings">
     <Type Name="Booking">
       <Column Name="BookingId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="UserId" Type="System.String" DbType="NChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="TrainRouteId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="NoInParty" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="statusOfBooking" Type="System.String" DbType="NChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="statusOfBooking" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
       <Association Name="TrainRoute_Booking" Member="TrainRoute" ThisKey="TrainRouteId" OtherKey="TrainRouteId" Type="TrainRoute" IsForeignKey="true" />
       <Association Name="User_Booking" Member="User" ThisKey="UserId" OtherKey="UserId" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Cities" Member="Cities">
     <Type Name="City">
-      <Column Name="CityId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="CityName" Type="System.String" DbType="NChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CityId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CityName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Association Name="City_Route" Member="Routes" ThisKey="CityId" OtherKey="Destination" Type="Route" />
       <Association Name="City_Route1" Member="Routes1" ThisKey="CityId" OtherKey="Source" Type="Route" />
       <Association Name="City_RouteStop" Member="RouteStops" ThisKey="CityId" OtherKey="CityId" Type="RouteStop" />
@@ -22,7 +22,7 @@
   </Table>
   <Table Name="dbo.Route" Member="Routes">
     <Type Name="Route">
-      <Column Name="RouteId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RouteId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Source" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Destination" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Distance" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -36,7 +36,7 @@
   </Table>
   <Table Name="dbo.RouteStops" Member="RouteStops">
     <Type Name="RouteStop">
-      <Column Name="RouteStopId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RouteStopId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="RouteId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="CityId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="ArrivalTime" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
@@ -47,7 +47,7 @@
   </Table>
   <Table Name="dbo.Train" Member="Trains">
     <Type Name="Train">
-      <Column Name="TrainId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TrainId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="CapacityFirst" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="CapacityEconomy" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Train_TrainRoute" Member="TrainRoutes" ThisKey="TrainId" OtherKey="TrainId" Type="TrainRoute" />
@@ -55,7 +55,7 @@
   </Table>
   <Table Name="dbo.TrainRoute" Member="TrainRoutes">
     <Type Name="TrainRoute">
-      <Column Name="TrainRouteId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TrainRouteId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="TrainId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="RouteId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
@@ -68,10 +68,12 @@
   </Table>
   <Table Name="dbo.Users" Member="Users">
     <Type Name="User">
-      <Column Name="UserId" Type="System.String" DbType="NChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Forename" Type="System.String" DbType="NChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Surname" Type="System.String" DbType="NChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="EmailAddress" Type="System.String" DbType="NChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Forename" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Surname" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="EmailAddress" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="Employee" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Association Name="User_Booking" Member="Bookings" ThisKey="UserId" OtherKey="UserId" Type="Booking" />
     </Type>
   </Table>

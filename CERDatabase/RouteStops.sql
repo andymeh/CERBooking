@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[RouteStops]
 (
-	[RouteStopId] INT NOT NULL PRIMARY KEY, 
+	[RouteStopId] INT NOT NULL PRIMARY KEY IDENTITY, 
     [RouteId] INT NOT NULL, 
     [CityId] INT NOT NULL, 
     [ArrivalTime] TIME NOT NULL, 

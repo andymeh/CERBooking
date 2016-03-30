@@ -1,11 +1,5 @@
 ﻿@model CERBookingSystem.Models.newRoute
 
-@{
-    ViewBag.Title = "newRoute";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-<h2>newRoute</h2>
 
 @using (Html.BeginForm()) 
 {
@@ -16,18 +10,18 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.source, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.sourceCityId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.source, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.source, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.sourceCityId, Model.CityListItems, new { @class = "form-control" } )
+                @Html.ValidationMessageFor(model => model.sourceCityId, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.destination, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.destinationCityId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.destination, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.destination, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.destinationCityId, Model.CityListItems ,new { @class = "form-control" } )
+                @Html.ValidationMessageFor(model => model.destinationCityId, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -42,7 +36,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.departureTime, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.departureTime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.departureTime, new { htmlAttributes = new { @id = "datetimepicker3", @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.departureTime, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -50,7 +44,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.arrivalTime, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.arrivalTime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.arrivalTime, new { htmlAttributes = new { @id = "datetimepicker4", @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.arrivalTime, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -66,3 +60,19 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+            $(function () {
+                $('#datetimepicker3').datetimepicker({
+                    format: 'LT'
+                });
+            });
+            $(function () {
+                $('#datetimepicker4').datetimepicker({
+                    format: 'LT'
+                });
+            });
+</script>
+}

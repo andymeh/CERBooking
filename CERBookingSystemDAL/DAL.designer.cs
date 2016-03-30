@@ -54,7 +54,7 @@ namespace CERBookingSystemDAL
     #endregion
 		
 		public DALDataContext() : 
-				base(global::CERBookingSystemDAL.Properties.Settings.Default.CERDatabaseConnectionString, mappingSource)
+				base(global::CERBookingSystemDAL.Properties.Settings.Default.CERDatabaseConnectionString2, mappingSource)
 		{
 			OnCreated();
 		}
@@ -154,6 +154,8 @@ namespace CERBookingSystemDAL
 		
 		private int _NoInParty;
 		
+		private string _statusOfBooking;
+		
 		private EntityRef<TrainRoute> _TrainRoute;
 		
 		private EntityRef<User> _User;
@@ -170,6 +172,8 @@ namespace CERBookingSystemDAL
     partial void OnTrainRouteIdChanged();
     partial void OnNoInPartyChanging(int value);
     partial void OnNoInPartyChanged();
+    partial void OnstatusOfBookingChanging(string value);
+    partial void OnstatusOfBookingChanged();
     #endregion
 		
 		public Booking()
@@ -263,6 +267,26 @@ namespace CERBookingSystemDAL
 					this._NoInParty = value;
 					this.SendPropertyChanged("NoInParty");
 					this.OnNoInPartyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_statusOfBooking", DbType="NVarChar(20) NOT NULL", CanBeNull=false)]
+		public string statusOfBooking
+		{
+			get
+			{
+				return this._statusOfBooking;
+			}
+			set
+			{
+				if ((this._statusOfBooking != value))
+				{
+					this.OnstatusOfBookingChanging(value);
+					this.SendPropertyChanging();
+					this._statusOfBooking = value;
+					this.SendPropertyChanged("statusOfBooking");
+					this.OnstatusOfBookingChanged();
 				}
 			}
 		}
@@ -390,7 +414,7 @@ namespace CERBookingSystemDAL
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CityId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CityId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int CityId
 		{
 			get
@@ -410,7 +434,7 @@ namespace CERBookingSystemDAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CityName", DbType="NChar(50) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CityName", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
 		public string CityName
 		{
 			get
@@ -579,7 +603,7 @@ namespace CERBookingSystemDAL
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RouteId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RouteId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int RouteId
 		{
 			get
@@ -889,7 +913,7 @@ namespace CERBookingSystemDAL
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RouteStopId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RouteStopId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int RouteStopId
 		{
 			get
@@ -1118,7 +1142,7 @@ namespace CERBookingSystemDAL
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int TrainId
 		{
 			get
@@ -1274,7 +1298,7 @@ namespace CERBookingSystemDAL
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainRouteId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrainRouteId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int TrainRouteId
 		{
 			get
@@ -1528,7 +1552,11 @@ namespace CERBookingSystemDAL
 		
 		private string _Surname;
 		
-		private string _Address;
+		private string _EmailAddress;
+		
+		private string _Password;
+		
+		private bool _Employee;
 		
 		private EntitySet<Booking> _Bookings;
 		
@@ -1542,8 +1570,12 @@ namespace CERBookingSystemDAL
     partial void OnForenameChanged();
     partial void OnSurnameChanging(string value);
     partial void OnSurnameChanged();
-    partial void OnAddressChanging(string value);
-    partial void OnAddressChanged();
+    partial void OnEmailAddressChanging(string value);
+    partial void OnEmailAddressChanged();
+    partial void OnPasswordChanging(string value);
+    partial void OnPasswordChanged();
+    partial void OnEmployeeChanging(bool value);
+    partial void OnEmployeeChanged();
     #endregion
 		
 		public User()
@@ -1552,7 +1584,7 @@ namespace CERBookingSystemDAL
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int UserId
 		{
 			get
@@ -1572,7 +1604,7 @@ namespace CERBookingSystemDAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Forename", DbType="NChar(50) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Forename", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
 		public string Forename
 		{
 			get
@@ -1592,7 +1624,7 @@ namespace CERBookingSystemDAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Surname", DbType="NChar(50) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Surname", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
 		public string Surname
 		{
 			get
@@ -1612,22 +1644,62 @@ namespace CERBookingSystemDAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address", DbType="NChar(200) NOT NULL", CanBeNull=false)]
-		public string Address
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmailAddress", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string EmailAddress
 		{
 			get
 			{
-				return this._Address;
+				return this._EmailAddress;
 			}
 			set
 			{
-				if ((this._Address != value))
+				if ((this._EmailAddress != value))
 				{
-					this.OnAddressChanging(value);
+					this.OnEmailAddressChanging(value);
 					this.SendPropertyChanging();
-					this._Address = value;
-					this.SendPropertyChanged("Address");
-					this.OnAddressChanged();
+					this._EmailAddress = value;
+					this.SendPropertyChanged("EmailAddress");
+					this.OnEmailAddressChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Password", DbType="NVarChar(40) NOT NULL", CanBeNull=false)]
+		public string Password
+		{
+			get
+			{
+				return this._Password;
+			}
+			set
+			{
+				if ((this._Password != value))
+				{
+					this.OnPasswordChanging(value);
+					this.SendPropertyChanging();
+					this._Password = value;
+					this.SendPropertyChanged("Password");
+					this.OnPasswordChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Employee", DbType="Bit NOT NULL")]
+		public bool Employee
+		{
+			get
+			{
+				return this._Employee;
+			}
+			set
+			{
+				if ((this._Employee != value))
+				{
+					this.OnEmployeeChanging(value);
+					this.SendPropertyChanging();
+					this._Employee = value;
+					this.SendPropertyChanged("Employee");
+					this.OnEmployeeChanged();
 				}
 			}
 		}

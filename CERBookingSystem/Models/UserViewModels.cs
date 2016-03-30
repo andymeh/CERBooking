@@ -10,11 +10,7 @@ namespace CERBookingSystem.Models
 {
     public class newUserModel
     {
-        [Display(Name = "Username*")]
-        [Required(ErrorMessage = "Username is required")]
-        [StringLength(30, ErrorMessage = "Username can be no larger than 50 characters")]
-        public string UserName { get; set; }
-
+        
         [Display(Name = "Forename*")]
         [Required(ErrorMessage = "Forename is required")]
         [StringLength(50, ErrorMessage = "Forename can be no larger than 50 characters")]
@@ -41,5 +37,24 @@ namespace CERBookingSystem.Models
         [Required(ErrorMessage = "Email Address is required")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string UserEmail { get; set; }
+
+        [Display(Name = "Email*")]
+        [Required(ErrorMessage = "Email Address is required")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        public string UserEmail2 { get; set; }
+    }
+
+    public class UserLogin
+    {
+        [Display(Name = "Email Address*")]
+        [Required(ErrorMessage = "Please enter a Email Address")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        public string emailAddress { get; set; }
+        [Display(Name = "Password*")]
+        [Required(ErrorMessage = "Please enter a Password")]
+        [DataType(DataType.Password)]
+        public string password { get; set; }
+        [Display(Name = "Rememeber me")]
+        public bool rememberMe { get; set; }
     }
 }

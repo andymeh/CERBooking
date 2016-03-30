@@ -1,11 +1,14 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/bootstrap-datetimepicker.css")
     @Scripts.Render("~/bundles/modernizr")
+        
 
 </head>
 <body>
@@ -17,28 +20,56 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("China Express Railways", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    @{string employee = Html.Action("IsEmployee", "User", new { emailAddress = User.Identity.Name }).ToString();
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    if (Request.IsAuthenticated && employee.Equals("False"))
+                    {
+                        <li>@Html.ActionLink("Bookings", "Index", "Bookings")</li>
+                    }
+                    else if (Request.IsAuthenticated && employee.Equals("True"))
+                    {
+                        <li>@Html.ActionLink("Bookings", "Index", "Bookings")</li>
+                        <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
+                    }
+                    }
                 </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (Request.IsAuthenticated)
+                    {
+                        string username = "Welcome " + Html.Action("UserName", "User", new { emailAddress = User.Identity.Name }).ToString();
+                        <li>@Html.ActionLink(username, "LogOut", "User")</li>
+                        <li>@Html.ActionLink("Log Out", "LogOut", "User")</li>
+                    }
+                    else
+                    {
+                        <li><button type = "button" class="btn btn-success" onclick="location.href='@Url.Action("Register", "User")'">Register</button></li>
+                        <li><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login-modal">Sign In</button></li>
+                    }
+                </ul>
+</div>
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
+        @Html.Partial("Login", new CERBookingSystem.Models.UserLogin())
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - China Express Railways</p>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/bootstrap3-typeahead.js")
+    @Scripts.Render("~/Scripts/bloodhound.js")
+    @Scripts.Render("~/Scripts/moment.js")
+    @Scripts.Render("~/Scripts/bootstrap-datetimepicker.js")
+    
+    
     @RenderSection("scripts", required: false)
 </body>
 </html>

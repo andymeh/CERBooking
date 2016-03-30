@@ -28,7 +28,7 @@ namespace CERBookingSystemBLL
             return booking;
         }
 
-        public List<Booking> getAllBookingForUser(string UserId)
+        public List<Booking> getAllBookingsForUser(string UserId)
         {
             using (var dc = new DALDataContext())
             {

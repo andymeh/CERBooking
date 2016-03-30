@@ -1,0 +1,21 @@
+﻿@model CERBookingSystem.Models.SearchModel
+
+
+<div class="list-group">
+    @foreach (var outTrains in Model.OutboundTrainRoutes)
+    {
+        <a href="#" class="list-group-item">
+            <h4 class="list-group-item-heading">Deprarting from : @Model.sourceCity At : @outTrains.departureTime</h4>
+            <p class="list-group-item-text">Arrivaing into: @Model.destCity At : @outTrains.arrivalTime</p>
+        </a>
+    }
+</div>
+<div class="list-group">
+    @foreach (var retTrains in Model.ReturnTrainRoutes)
+    {
+        <a href="#" class="list-group-item">
+            <h4 class="list-group-item-heading">Deprarting from : @Model.destCity At : @retTrains.departureTime</h4>
+            <p class="list-group-item-text">Arrivaing into: @Model.sourceCity At : @retTrains.arrivalTime</p>
+        </a>
+    }
+</div>
