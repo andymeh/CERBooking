@@ -14,51 +14,43 @@ namespace CERBookingSystem.Controllers
         // GET: TrainRoute
         public ActionResult Index()
         {
+            ViewBag.ShowMenu = true;
             return View();
         }
         public ActionResult AddNewTrain()
         {
+            ViewBag.ShowMenu = true;
+            return View();
+        }
+        public ActionResult AddNewCity()
+        {
+            ViewBag.ShowMenu = true;
             return View();
         }
         public ActionResult AddNewRoute()
         {
+            ViewBag.ShowMenu = true;
             var model = new newRoute();
-            List<cityDetails> allCitiesDetail = new List<cityDetails>();
-
-            List<City> allCities = CitiesBLL.getAllCities();
-            foreach(var c in allCities)
-            {
-                allCitiesDetail.Add(new cityDetails
-                {
-                    cityId = c.CityId,
-                    cityName = c.CityName
-                });
-            }
-            model.cityDetails = allCitiesDetail;
+            
+            model.cityDetails = getAllCityDetails();
             return View(model);
         }
         public ActionResult AddNewTrainRoute()
         {
+            ViewBag.ShowMenu = true;
             var model = new newTrainRoute();
+            
+            model.routeDetails = getAllRouteDetail();
+            
+            model.trainDetails = getAllTrainDetail();
+            return View(model);
+        }
 
-            List<Route> allRoutes = RouteBLL.getAllRoutes();
-            List<RouteDetail> allRouteDetail = new List<RouteDetail>();
-            foreach(var r in allRoutes)
-            {
-                allRouteDetail.Add(new RouteDetail
-                {
-                    routeId = r.RouteId,
-                    sourceCityName = CitiesBLL.getCity(r.Source).CityName,
-                    destCityName = CitiesBLL.getCity(r.Destination).CityName,
-                    depatTime = r.DepartureTime,
-                    arrivalTime = r.ArrivalTime
-                });
-            }
-            model.routeDetails = allRouteDetail;
-
+        private List<TrainDetail> getAllTrainDetail()
+        {
             List<Train> allTrains = TrainBLL.getAllTrains();
             List<TrainDetail> allTrainDetail = new List<TrainDetail>();
-            foreach(var t in allTrains)
+            foreach (var t in allTrains)
             {
                 allTrainDetail.Add(new TrainDetail
                 {
@@ -67,13 +59,32 @@ namespace CERBookingSystem.Controllers
                     econClassCapacity = t.CapacityEconomy
                 });
             }
-            model.trainDetails = allTrainDetail;
-            return View(model);
+            return allTrainDetail;
         }
+
+        private List<RouteDetail> getAllRouteDetail()
+        {
+            List<Route> allRoutes = RouteBLL.getAllRoutes();
+            List<RouteDetail> allRouteDetail = new List<RouteDetail>();
+            foreach (var r in allRoutes)
+            {
+                allRouteDetail.Add(new RouteDetail
+                {
+                    routeId = r.RouteId,
+                    sourceCityName = CitiesBLL.getCity(r.Source).CityName,
+                    destCityName = CitiesBLL.getCity(r.Destination).CityName,
+                    departTime = r.DepartureTime,
+                    arrivalTime = r.ArrivalTime
+                });
+            }
+            return allRouteDetail.OrderBy(x => x.sourceCityName).ThenBy(x => x.destCityName).ThenBy(x => x.departTime).ThenBy(x => x.arrivalTime).ToList();
+        }
+
         [Authorize]
         [HttpPost]
         public ActionResult AddNewTrain(newTrain train)
         {
+            ViewBag.ShowMenu = true;
             if (ModelState.IsValid)
             {
                 Train dalTrain = new Train
@@ -89,6 +100,7 @@ namespace CERBookingSystem.Controllers
         [HttpPost]
         public ActionResult AddNewRoute(newRoute route)
         {
+            ViewBag.ShowMenu = true;
             if (ModelState.IsValid)
             {
                 Route dalRoute = new Route
@@ -101,12 +113,15 @@ namespace CERBookingSystem.Controllers
                 };
                 RouteBLL.addRoute(dalRoute);
             }
-            return View(route);
+            var model = new newRoute();
+            model.cityDetails = getAllCityDetails();
+            return View(model);
         }
         [Authorize]
         [HttpPost]
         public ActionResult AddNewTrainRoute(newTrainRoute _trainRoute)
         {
+            ViewBag.ShowMenu = true;
             if (ModelState.IsValid)
             {
                 Train train = TrainBLL.getTrain(_trainRoute.TrainId);
@@ -118,9 +133,34 @@ namespace CERBookingSystem.Controllers
                     EconomySeats = train.CapacityEconomy
                 };
                 TrainRouteBLL.addTrainRoute(newTrainRoute, _trainRoute.startDate, _trainRoute.endDate);
-                return RedirectToAction("Index", "Home");
             }
-            return View(_trainRoute);
+
+            var model = new newTrainRoute();
+            model.routeDetails = getAllRouteDetail();
+            model.trainDetails = getAllTrainDetail();
+
+            return View(model);
+        }
+        [Authorize]
+        [HttpPost]
+        public ActionResult AddNewCity(newCity _city)
+        {
+            ViewBag.ShowMenu = true;
+            if (ModelState.IsValid)
+            {
+                City city = CitiesBLL.getCity(_city.cityName);
+                if (city == null)
+                {
+                    City dalCity = new City { CityName = _city.cityName };
+                    CitiesBLL.addCity(dalCity);
+                    return View();
+                }
+                else
+                {
+                    ModelState.AddModelError("", city.CityName + " is already listed.");
+                }
+            }
+            return View(_city);
         }
 
         public List<cityDetails> getAllCityDetails()

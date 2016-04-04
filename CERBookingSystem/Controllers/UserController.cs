@@ -10,6 +10,7 @@ using CERBookingSystemDAL;
 
 namespace CERBookingSystem.Controllers
 {
+    [AllowAnonymous]
     public class UserController : Controller
     {
         // GET: User
@@ -17,11 +18,11 @@ namespace CERBookingSystem.Controllers
         {
             return View();
         }
-
         public ActionResult Register()
         {
             return View();
         }
+
         [Authorize]
         public ActionResult RegisterNewEmployee()
         {
@@ -58,6 +59,7 @@ namespace CERBookingSystem.Controllers
                                 Employee = false
                             };
                             UserBLL.addNewUser(dalUser);
+                            FormsAuthentication.SetAuthCookie(dalUser.EmailAddress, false);
                             RedirectToAction("Index", "Home");
                         }
                         else

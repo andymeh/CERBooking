@@ -5,87 +5,93 @@
 @using (Html.BeginForm("Search", "Home", FormMethod.Post, new { autocomplete = "off" }))
 {
     @Html.AntiForgeryToken()
-    <div class="form-horizontal jumbotron" style="padding-top:50px">
+    <div class="jumbotron">
+        <div class="container" style="display: inline-block;">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-6">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.bookingDetails.sourceCityId, htmlAttributes: new { @class = "control-label" })
+                        <div id="prefetch">
+                            @Html.DropDownListFor(model => model.bookingDetails.sourceCityId, Model.CityListItems, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.bookingDetails.sourceCityId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="row">
-            <div class="col-sm-6 col-lg-4">
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(model => model.bookingDetails.sourceCityId, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div id="prefetch">
-                        @Html.DropDownListFor(model => model.bookingDetails.sourceCityId, Model.CityListItems, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.bookingDetails.sourceCityId, "", new { @class = "text-danger" })
+                    <div class="col-xs-6 selectContainer">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.bookingDetails.destinationCityId, htmlAttributes: new { @class = "control-label" })
+                        <div id="prefetch">
+                            @Html.DropDownListFor(model => model.bookingDetails.destinationCityId, Model.CityListItems, new { @class = "form-control"})
+                            @Html.ValidationMessageFor(model => model.bookingDetails.destinationCityId, "", new { @class = "text-danger" })
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-lg-4">
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group ">
-                    <div id="prefetch">
-                        @Html.DropDownListFor(model => model.bookingDetails.destinationCityId, Model.CityListItems, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.bookingDetails.destinationCityId, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-6">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.bookingDetails.dateOutbound, htmlAttributes: new { @class = "control-label" })
+                        <div id="prefetch">
+                            @Html.EditorFor(model => model.bookingDetails.dateOutbound, new { htmlAttributes = new { @id = "datetimepicker4", @class = "form-control", @placeholder = "Depart" } })
+                            @Html.ValidationMessageFor(model => model.bookingDetails.dateOutbound, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 selectContainer">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.bookingDetails.dateReturn, htmlAttributes: new { @class = "control-label" })
+                        <div id="prefetch">
+                            @Html.EditorFor(model => model.bookingDetails.dateReturn, new { htmlAttributes = new { @id = "datetimepicker5", @class = "form-control", @placeholder = "Return" } })
+                            @Html.ValidationMessageFor(model => model.bookingDetails.dateReturn, "", new { @class = "text-danger" })
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6 col-lg-4">
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.bookingDetails.dateOutbound, new { htmlAttributes = new { @id= "datetimepicker4", @class = "form-control", @placeholder = "Depart" } })
-                        @Html.ValidationMessageFor(model => model.bookingDetails.dateOutbound, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-4">
-                <div class="form-group">
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.bookingDetails.dateReturn, new { htmlAttributes = new { @id = "datetimepicker5", @class = "form-control", @placeholder = "Return" } })
-                        @Html.ValidationMessageFor(model => model.bookingDetails.dateReturn, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6 col-lg-4">
-                <div class="form-group">
-                    <div class="col-md-10">
-                        <div class="checkbox">
-                            @Html.EditorFor(model => model.bookingDetails.firstClass, new { @class = "form-control" })
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-6">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.bookingDetails.firstClass, htmlAttributes: new { @class = "control-label" })
+                        <div class="checkbox" style="padding-top:5px; padding-left:75px">
+                            @Html.EditorFor(model => model.bookingDetails.firstClass, new { @class = "form-control"})
                             @Html.ValidationMessageFor(model => model.bookingDetails.firstClass, "", new { @class = "text-danger" })
                         </div>
-                        @Html.LabelFor(model => model.bookingDetails.firstClass, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    </div>
+
+                    <div class="col-xs-6 selectContainer">
+                        @Html.LabelFor(model => model.bookingDetails.numberOfPassengers, htmlAttributes: new { @class = "control-label" })
+                        <div>
+                            @Html.DropDownListFor(model => model.bookingDetails.numberOfPassengers, Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.bookingDetails.numberOfPassengers, "", new { @class = "text-danger" })
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-lg-4">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.bookingDetails.numberOfPassengers, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.bookingDetails.numberOfPassengers, Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.bookingDetails.numberOfPassengers, "", new { @class = "text-danger" })
-                    </div>
+
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Search" class="btn btn-default" />
                 </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Search" class="btn btn-default" />
             </div>
         </div>
     </div>
+
 }
 
             @section scripts{
-                <script type="text/javascript">
+            <script type="text/javascript">
             $(function () {
                 $('#datetimepicker4').datetimepicker({
                     locale: 'en-GB',
                     format: 'DD/MM/YYYY'
                 });
                 $('#datetimepicker5').datetimepicker({
-                    useCurrent: false,
+                    useCurrent: false, //Important! See issue #1075
                     locale: 'en-GB',
                     format: 'DD/MM/YYYY'
                 });
@@ -97,5 +103,5 @@
                 });
             });
 
-</script>
-            }
+        </script>
+}

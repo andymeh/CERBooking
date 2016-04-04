@@ -1,21 +1,40 @@
 ﻿@model CERBookingSystem.Models.SearchModel
 
 
-<div class="list-group">
+<div class="list-group" style="padding-top:20px">
     @foreach (var outTrains in Model.OutboundTrainRoutes)
     {
-        <a href="#" class="list-group-item">
-            <h4 class="list-group-item-heading">Deprarting from : @Model.sourceCity At : @outTrains.departureTime</h4>
-            <p class="list-group-item-text">Arrivaing into: @Model.destCity At : @outTrains.arrivalTime</p>
+        <a class="list-group-item">
+            <h4 class="list-group-item-heading">@Model.sourceCity  :  @outTrains.departureTime</h4>
+            <h4 class="list-group-item-text">@Model.destCity  :  @outTrains.arrivalTime</h4>
         </a>
     }
 </div>
 <div class="list-group">
     @foreach (var retTrains in Model.ReturnTrainRoutes)
     {
-        <a href="#" class="list-group-item">
-            <h4 class="list-group-item-heading">Deprarting from : @Model.destCity At : @retTrains.departureTime</h4>
-            <p class="list-group-item-text">Arrivaing into: @Model.sourceCity At : @retTrains.arrivalTime</p>
+        <a class="list-group-item">
+            <h4 class="list-group-item-heading">@Model.destCity  :  @retTrains.departureTime</h4>
+            <h4 class="list-group-item-text">@Model.sourceCity  :  @retTrains.arrivalTime</h4>
         </a>
     }
 </div>
+<@section scripts{
+<script>
+    $('.list-group').on('click', '> a', function (e) {
+        var $this = $(this);
+        $('.list-group').find('.active').removeClass('active');
+        $this.addClass('active');
+
+        alert($this.attr('href') + ' is active');
+    });
+    @*$('.list-group-item').on('click', function (e) {
+        $(e.target).addClass('active'); // activated list-item
+    });
+    $('.list-group-item').on('click',function(e){
+    var previous = $(this).closest(".list-group").children(".active");
+    previous.removeClass('active'); // previous list-item
+    $(e.target).addClass('active'); // activated list-item
+  });*@
+</script>
+}

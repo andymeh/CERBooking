@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/bootstrap-datetimepicker.css")
     @Scripts.Render("~/bundles/modernizr")
@@ -33,7 +33,7 @@
                     else if (Request.IsAuthenticated && employee.Equals("True"))
                     {
                         <li>@Html.ActionLink("Bookings", "Index", "Bookings")</li>
-                        <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
+                        <li>@Html.ActionLink("Manage", "Index", "TrainRoute")</li>
                     }
                     }
                 </ul>
@@ -53,6 +53,21 @@
 </div>
         </div>
     </div>
+    @if (ViewBag.ShowMenu == true)
+    {
+        <div class="navbar">
+            <div class="container">
+                <div class="navbar-collapse collapse">
+                    <ul style="display: inline-block; float:none; " class="nav navbar-nav">
+                        <li>@Html.ActionLink("New City", "AddNewCity", "TrainRoute")</li>
+                        <li>@Html.ActionLink("New Train", "AddNewTrain", "TrainRoute")</li>
+                        <li>@Html.ActionLink("New Route", "AddNewRoute", "TrainRoute")</li>
+                        <li>@Html.ActionLink("New Train", "AddNewTrainRoute", "TrainRoute")</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
     <div class="container body-content">
         @RenderBody()
         @Html.Partial("Login", new CERBookingSystem.Models.UserLogin())

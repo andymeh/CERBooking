@@ -220,6 +220,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="Properties\PublishProfiles\cerbooking.pubxml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -258,6 +259,7 @@
     <Content Include="Views\TrainRoute\AddNewRoute.cshtml" />
     <Content Include="Views\TrainRoute\AddNewTrainRoute.cshtml" />
     <Content Include="Views\TrainRoute\Index.cshtml" />
+    <Content Include="Views\TrainRoute\AddNewCity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

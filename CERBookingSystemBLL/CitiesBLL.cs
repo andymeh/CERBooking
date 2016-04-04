@@ -35,5 +35,14 @@ namespace CERBookingSystemBLL
                 return city;
             }
         }
+
+        public static void addCity(City dalCity)
+        {
+            using (var db = new DALDataContext())
+            {
+                db.Cities.InsertOnSubmit(dalCity);
+                db.SubmitChanges();
+            }
+        }
     }
 }
