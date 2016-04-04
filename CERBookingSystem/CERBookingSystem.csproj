@@ -259,10 +259,10 @@
     <Content Include="Views\TrainRoute\AddNewTrainRoute.cshtml" />
     <Content Include="Views\TrainRoute\Index.cshtml" />
     <Content Include="Views\TrainRoute\AddNewCity.cshtml" />
+    <Content Include="Views\Booking\NewBooking.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Booking\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

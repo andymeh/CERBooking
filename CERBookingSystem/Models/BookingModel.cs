@@ -24,25 +24,16 @@ namespace CERBookingSystem.Models
 
     public class NewBookingModel
     {
-        public int selectedOutbound { get; set; }
-        public int selectedReturn { get; set; }
-        [Display(Name = "From")]
-        [Required(ErrorMessage = "This field is required")]
-        public int sourceCityId { get; set; }
-        [Display(Name = "To")]
-        [Required(ErrorMessage = "This field is required")]
-        public int destinationCityId { get; set; }
-        [Display(Name = "Date Outbound")]
-        [Required(ErrorMessage = "This field is required")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public SearchTrainRoute selectedOutbound { get; set; }
+        public SearchTrainRoute selectedReturn { get; set; }
+        public userDetail usersDetails { get; set; }
         public DateTime dateOutbound { get; set; }
-        [Display(Name = "Date Return")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? dateReturn { get; set; }
         public bool firstClass { get; set; }
-        [Display(Name = "Number Of Passengers")]
-        [Required(ErrorMessage = "This field is required")]
         public int numberOfPassengers { get; set; }
-
+        public int sourceCityId { get; set; }
+        public int destinationCityId { get; set; }
+        public bool isReturn { get; set; }
+        public double price { get; set; }
     }
 }

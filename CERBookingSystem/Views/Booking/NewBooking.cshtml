@@ -1,0 +1,86 @@
+﻿@model CERBookingSystem.Models.NewBookingModel
+
+<div class="row" style="padding-top:40px">
+    <div class="col-md-6" style="float:left">
+        <div class="panel panel-primary">
+
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="glyphicon-fast-forward"></i>Outbound</h3>
+            </div>
+            <div class="panel-body mypanel" style="word-wrap:break-word; padding-bottom:5px">
+                <h3 class="text-center">
+                    @Html.DisplayFor(modelItem => modelItem.selectedOutbound.Source) to @Html.DisplayFor(modelItem => modelItem.selectedOutbound.Destination)
+                </h3>
+                <h4>Departing time : @Html.DisplayFor(modelItem => modelItem.selectedOutbound.departureTime)</h4>
+                <h4>Arrival time : @Html.DisplayFor(modelItem => modelItem.selectedOutbound.arrivalTime)</h4>
+            </div>
+            <div class="panel-footer">
+            </div>
+        </div>
+    </div>
+    @if (Model.isReturn)
+    {
+        <div class="col-md-6" style="float:right">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="glyphicon-fast-backward"></i>Return</h3>
+                </div>
+                <div class="panel-body mypanel " style="word-wrap:break-word; padding-bottom:5px">
+                    <h3 class="text-center">
+                        @Html.DisplayFor(modelItem => modelItem.selectedReturn.Source) to @Html.DisplayFor(modelItem => modelItem.selectedReturn.Destination)
+                    </h3>
+                    <h4>Departing time : @Html.DisplayFor(modelItem => modelItem.selectedReturn.departureTime)</h4>
+                    <h4>Arrival time : @Html.DisplayFor(modelItem => modelItem.selectedReturn.arrivalTime)</h4>
+                </div>
+                <div class="panel-footer">
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="glyphicon-fast-forward"></i>User Detials</h3>
+            </div>
+            <div class="panel-body mypanel" style="word-wrap:break-word; padding-bottom:5px">
+                <h4>
+                    Email Address : @Html.DisplayFor(modelItem => modelItem.usersDetails.emailAddress)
+                </h4>
+                <h4>
+                    Forename : @Html.DisplayFor(modelItem => modelItem.usersDetails.forename)
+                </h4>
+                <h4>
+                    Surname : @Html.DisplayFor(modelItem => modelItem.usersDetails.surname)
+                </h4>
+            </div>
+            <div class="panel-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="glyphicon-fast-forward"></i>Journey Info</h3>
+            </div>
+            <div class="panel-body mypanel" style="word-wrap:break-word; padding-bottom:5px">
+                <h4>
+                    Number of travellers : @Html.DisplayFor(modelItem => modelItem.numberOfPassengers)
+                </h4>
+                <h4>
+                    Total cost : £@Html.DisplayFor(modelItem => modelItem.price)
+                </h4>
+            </div>
+            <div class="panel-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <input type="button" value="Confirm" onclick="location.href='@Url.Action("CompleteBooking", "Booking", new { bookingdetails = Model })'" />
+</div>
+
+

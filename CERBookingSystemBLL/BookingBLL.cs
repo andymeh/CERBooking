@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace CERBookingSystemBLL
 {
-    class BookingBLL
+    public class BookingBLL
     {
-        public void addBooking(Booking newBooking)
+        public static void addBooking(Booking newBooking)
         {
             using (var dc = new DALDataContext())
             {
@@ -18,7 +18,7 @@ namespace CERBookingSystemBLL
             }
         }
 
-        public Booking getBooking(int bookingId)
+        public static Booking getBooking(int bookingId)
         {
             Booking booking = new Booking();
             using (var dc = new DALDataContext())
@@ -28,7 +28,7 @@ namespace CERBookingSystemBLL
             return booking;
         }
 
-        public List<Booking> getAllBookingsForUser(string UserId)
+        public static List<Booking> getAllBookingsForUser(string UserId)
         {
             using (var dc = new DALDataContext())
             {
@@ -38,31 +38,31 @@ namespace CERBookingSystemBLL
             }
         }
 
-        public int numberCancelledBookings(DateTime startDate, DateTime endDate)
+        public static int numberCancelledBookings(DateTime startDate)
         {
             using (var dc = new DALDataContext())
             {
                 List<Booking> userBookings = new List<Booking>();
-                userBookings = dc.Bookings.Where(x => x.statusOfBooking == "Cancelled" && x.DateCancelled >= startDate && x.DateCancelled <= endDate).ToList();
+                userBookings = dc.Bookings.Where(x => x.statusOfBooking == "Cancelled" && x.DateCancelled.Value.Date == startDate.Date).ToList();
                 return userBookings.Count;
             }
         }
 
-        public int numberOfActiveBookings(DateTime startDate, DateTime endDate)
+        public static int numberOfActiveBookings(DateTime startDate)
         {
             using (var dc = new DALDataContext())
             {
                 List<Booking> userBookings = new List<Booking>();
-                userBookings = dc.Bookings.Where(x => x.statusOfBooking == "Active" && x.DateBooked >= startDate && x.DateBooked <= endDate).ToList();
+                userBookings = dc.Bookings.Where(x => x.statusOfBooking == "Active" && x.DateBooked.Date == startDate.Date).ToList();
                 return userBookings.Count;
             }
         }
-        public int numberOfPendingBookings(DateTime startDate, DateTime endDate)
+        public static int numberOfPendingBookings(DateTime startDate, DateTime endDate)
         {
             using (var dc = new DALDataContext())
             {
                 List<Booking> userBookings = new List<Booking>();
-                userBookings = dc.Bookings.Where(x => x.statusOfBooking == "Pending" && x.DateBooked >= startDate && x.DateBooked <= endDate).ToList();
+                userBookings = dc.Bookings.Where(x => x.statusOfBooking == "Pending" && x.DateBooked.Date >= startDate.Date).ToList();
                 return userBookings.Count;
             }
         }

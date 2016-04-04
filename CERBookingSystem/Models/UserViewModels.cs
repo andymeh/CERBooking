@@ -57,4 +57,12 @@ namespace CERBookingSystem.Models
         [Display(Name = "Rememeber me")]
         public bool rememberMe { get; set; }
     }
+
+    public class userDetail
+    {
+        public int userId { get; set; }
+        public string forename { get; set; }
+        public string surname { get; set; }
+        public string emailAddress { get; set; }
+    }
 }

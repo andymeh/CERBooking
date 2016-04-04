@@ -52,5 +52,14 @@ namespace CERBookingSystemBLL
                 return lstTrainRoutes;
             }
         }
+        public static TrainRoute GetTrainRoute(int TrainRouteId)
+        {
+            using (var db = new DALDataContext())
+            {
+                TrainRoute TRoute = new TrainRoute();
+                TRoute = (db.TrainRoutes.FirstOrDefault(x => x.TrainRouteId == TrainRouteId));
+                return TRoute;
+            }
+        }
     }
 }
