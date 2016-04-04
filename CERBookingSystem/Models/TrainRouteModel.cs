@@ -10,17 +10,24 @@ namespace CERBookingSystem.Models
 
     public class newTrain
     {
+        [Display(Name = "First Class Capacity*")]
+        [Required(ErrorMessage = "Please enter a capacity for first class")]
         public int firstClassCapacity { get; set; }
+        [Display(Name = "Second Class Capacity*")]
+        [Required(ErrorMessage = "Please enter a capacity for Second class")]
         public int secondClassCapacity { get; set; }
     }
 
     public class newCity
     {
+        [Display(Name = "City Name*")]
+        [Required(ErrorMessage = "A city name is required")]
         public string cityName { get; set; }
     }
 
     public class newRoute
     {
+        
         public List<cityDetails> cityDetails { get; set; }
         public IEnumerable<SelectListItem> CityListItems
         {
@@ -35,10 +42,21 @@ namespace CERBookingSystem.Models
 
             }
         }
+       
+        [Display(Name = "Source City*")]
+        [Required(ErrorMessage = "Please select a city")]
         public int sourceCityId { get; set; }
+        [Display(Name = "Destination City*")]
+        [Required(ErrorMessage = "Please select a city")]
         public int destinationCityId { get; set; }
+        [Display(Name = "Distance*")]
+        [Required(ErrorMessage = "Please enter a distance")]
         public int distance { get; set; }
+        [Display(Name = "Departure Time*")]
+        [Required(ErrorMessage = "Please enter a departure time")]
         public TimeSpan departureTime { get; set; }
+        [Display(Name = "Arrival Time*")]
+        [Required(ErrorMessage = "Please enter an arrival time")]
         public TimeSpan arrivalTime { get; set; }
     }
 
