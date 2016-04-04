@@ -1,0 +1,26 @@
+﻿@model CERBookingSystem.Models.BookTicketReport
+
+<table class="table">
+    <tr>
+        <th>Bookings</th>
+        <th>Active</th>
+        <th>Cancellations</th>
+    </tr>
+        @for (int i = 0; i<Model.ListOfBookedTickets.Count; i++)
+        {
+            var item = Model.ListOfBookedTickets.ElementAt(i);
+            var itemC = Model.ListOfCancelledTickets.ElementAt(i);
+
+            <tr>
+                <td>
+                    @item.dateOfBooking.Date.ToShortDateString()
+                </td>
+                <td>
+                    @item.numberOfTicketsBooked.ToString()
+                </td>
+                <td>
+                    @itemC.numberOfTicketsCancelled.ToString()
+                </td>
+            </tr>
+        }
+</table>
