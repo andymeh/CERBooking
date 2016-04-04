@@ -13,11 +13,7 @@ namespace CERBookingSystem.Models
         public List<SearchTrainRoute> OutboundTrainRoutes { get; set; }
         public List<SearchTrainRoute> ReturnTrainRoutes { get; set; }
         public NewBookingModel bookingDetails { get; set; }
-        [Display(Name = "Source City*")]
-        [Required(ErrorMessage = "Please enter a city")]
         public string sourceCity { get; set; }
-        [Display(Name = "Destination City*")]
-        [Required(ErrorMessage = "Please enter a city")]
         public string destCity { get; set; }
         public List<cityDetails> cityDetails { get; set; }
         public IEnumerable<SelectListItem> CityListItems
@@ -33,6 +29,8 @@ namespace CERBookingSystem.Models
 
             }
         }
+        public int selectedOutbound { get; set; }
+        public int selectedReturn { get; set; }
     }
     
 }

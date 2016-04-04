@@ -20,12 +20,10 @@ namespace CERBookingSystem.Controllers
             return View();
         }
 
-        public ActionResult NewBooking(NewBookingModel newBooking)
+        [HttpPost]
+        public ActionResult NewBooking(SearchModel newBooking)
         {
-            if(ModelState.IsValid)
-            {
-
-            }
+            
             return View();
         }
     }

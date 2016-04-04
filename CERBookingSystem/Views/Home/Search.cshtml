@@ -1,40 +1,51 @@
 ﻿@model CERBookingSystem.Models.SearchModel
 
-
-<div class="list-group" style="padding-top:20px">
+<div id="lstOut" class="list-group" style="padding-top:20px">
     @foreach (var outTrains in Model.OutboundTrainRoutes)
     {
-        <a class="list-group-item">
+        <a id="@outTrains.TrainRouteId" class="list-group-item">
             <h4 class="list-group-item-heading">@Model.sourceCity  :  @outTrains.departureTime</h4>
             <h4 class="list-group-item-text">@Model.destCity  :  @outTrains.arrivalTime</h4>
         </a>
     }
 </div>
-<div class="list-group">
+<div id="lstReturn" class="list-group">
     @foreach (var retTrains in Model.ReturnTrainRoutes)
     {
-        <a class="list-group-item">
+        <a id="@retTrains.TrainRouteId" class="list-group-item">
             <h4 class="list-group-item-heading">@Model.destCity  :  @retTrains.departureTime</h4>
             <h4 class="list-group-item-text">@Model.sourceCity  :  @retTrains.arrivalTime</h4>
         </a>
     }
 </div>
+@using (Html.BeginForm("NewBooking","Booking", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.selectedOutbound)
+    @Html.HiddenFor(x => x.selectedReturn)
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+
 <@section scripts{
 <script>
-    $('.list-group').on('click', '> a', function (e) {
+    $('#lstOut').on('click', '> a', function (e) {
         var $this = $(this);
-        $('.list-group').find('.active').removeClass('active');
+        var id = $(this).attr('id');
+        $('#lstOut').find('.active').removeClass('active');
         $this.addClass('active');
-
-        alert($this.attr('href') + ' is active');
+        $("#selectedOutbound").val(id);
     });
-    @*$('.list-group-item').on('click', function (e) {
-        $(e.target).addClass('active'); // activated list-item
+    $('#lstReturn').on('click', '> a', function (e) {
+        var $this = $(this);
+        var id = $(this).attr('id');
+        $('#lstReturn').find('.active').removeClass('active');
+        $this.addClass('active');
+        $("#selectedReturn").val(id);
     });
-    $('.list-group-item').on('click',function(e){
-    var previous = $(this).closest(".list-group").children(".active");
-    previous.removeClass('active'); // previous list-item
-    $(e.target).addClass('active'); // activated list-item
-  });*@
 </script>
 }

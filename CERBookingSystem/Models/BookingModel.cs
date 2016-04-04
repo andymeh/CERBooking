@@ -24,6 +24,8 @@ namespace CERBookingSystem.Models
 
     public class NewBookingModel
     {
+        public int selectedOutbound { get; set; }
+        public int selectedReturn { get; set; }
         [Display(Name = "From")]
         [Required(ErrorMessage = "This field is required")]
         public int sourceCityId { get; set; }

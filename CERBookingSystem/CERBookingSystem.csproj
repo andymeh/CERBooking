@@ -250,7 +250,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
-    <Content Include="Views\Booking\NewBooking.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\Shared\Login.cshtml" />
@@ -263,6 +262,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Booking\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

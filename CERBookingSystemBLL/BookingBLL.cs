@@ -37,5 +37,34 @@ namespace CERBookingSystemBLL
                 return userBookings;
             }
         }
+
+        public int numberCancelledBookings(DateTime startDate, DateTime endDate)
+        {
+            using (var dc = new DALDataContext())
+            {
+                List<Booking> userBookings = new List<Booking>();
+                userBookings = dc.Bookings.Where(x => x.statusOfBooking == "Cancelled" && x.DateCancelled >= startDate && x.DateCancelled <= endDate).ToList();
+                return userBookings.Count;
+            }
+        }
+
+        public int numberOfActiveBookings(DateTime startDate, DateTime endDate)
+        {
+            using (var dc = new DALDataContext())
+            {
+                List<Booking> userBookings = new List<Booking>();
+                userBookings = dc.Bookings.Where(x => x.statusOfBooking == "Active" && x.DateBooked >= startDate && x.DateBooked <= endDate).ToList();
+                return userBookings.Count;
+            }
+        }
+        public int numberOfPendingBookings(DateTime startDate, DateTime endDate)
+        {
+            using (var dc = new DALDataContext())
+            {
+                List<Booking> userBookings = new List<Booking>();
+                userBookings = dc.Bookings.Where(x => x.statusOfBooking == "Pending" && x.DateBooked >= startDate && x.DateBooked <= endDate).ToList();
+                return userBookings.Count;
+            }
+        }
     }
 }
