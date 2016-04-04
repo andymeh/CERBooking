@@ -130,6 +130,7 @@ namespace CERBookingSystem.Controllers
                    ModelState.AddModelError("", "Username already exists");
                 }
             }
+            searchTerms.cityDetails = getAllCityDetails();
             return View("Index", searchTerms);
         }
         public List<cityDetails> getAllCityDetails()
