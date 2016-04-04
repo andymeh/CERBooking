@@ -5,11 +5,11 @@
 @using (Html.BeginForm("Search", "Home", FormMethod.Post, new { autocomplete = "off" }))
 {
     @Html.AntiForgeryToken()
-    <div class="jumbotron">
-        <div class="container" style="display: inline-block;">
+    <div class="jumbotron" style="background-color:#FFA500; background-size: cover">
+         <div class="container center-block" >
             <div class="form-group">
                 <div class="row">
-                    <div class="col-xs-6">
+                    <div class="col-md-6">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.LabelFor(model => model.bookingDetails.sourceCityId, htmlAttributes: new { @class = "control-label" })
                         <div id="prefetch">
@@ -18,7 +18,7 @@
                         </div>
                     </div>
 
-                    <div class="col-xs-6 selectContainer">
+                    <div class="col-md-6 selectContainer">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.LabelFor(model => model.bookingDetails.destinationCityId, htmlAttributes: new { @class = "control-label" })
                         <div id="prefetch">
@@ -30,7 +30,7 @@
             </div>
             <div class="form-group">
                 <div class="row">
-                    <div class="col-xs-6">
+                    <div class="col-md-6">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.LabelFor(model => model.bookingDetails.dateOutbound, htmlAttributes: new { @class = "control-label" })
                         <div id="prefetch">
@@ -39,7 +39,7 @@
                         </div>
                     </div>
 
-                    <div class="col-xs-6 selectContainer">
+                    <div class="col-md-6 selectContainer">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.LabelFor(model => model.bookingDetails.dateReturn, htmlAttributes: new { @class = "control-label" })
                         <div id="prefetch">
@@ -51,17 +51,18 @@
             </div>
             <div class="form-group">
                 <div class="row">
-                    <div class="col-xs-6">
+                    <div class="col-md-6">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.LabelFor(model => model.bookingDetails.firstClass, htmlAttributes: new { @class = "control-label" })
-                        <div class="checkbox" style="padding-top:5px; padding-left:75px">
-                            @Html.EditorFor(model => model.bookingDetails.firstClass, new { @class = "form-control"})
+                        <div>
+                            <input id="firstClassCheck"type="checkbox" checked data-toggle="toggle" data-off="Economy" data-on="First"  data-onstyle="success" >
+                            @Html.HiddenFor(model => model.bookingDetails.firstClass, new { id = "firstClassField" })
                             @Html.ValidationMessageFor(model => model.bookingDetails.firstClass, "", new { @class = "text-danger" })
                         </div>
 
                     </div>
 
-                    <div class="col-xs-6 selectContainer">
+                    <div class="col-md-6 ">
                         @Html.LabelFor(model => model.bookingDetails.numberOfPassengers, htmlAttributes: new { @class = "control-label" })
                         <div>
                             @Html.DropDownListFor(model => model.bookingDetails.numberOfPassengers, Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), new { @class = "form-control" })
@@ -74,14 +75,17 @@
 
 
             <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
+                <div class="col-md-10 col-md-offset-2">
                     <input type="submit" value="Search" class="btn btn-default" />
                 </div>
             </div>
         </div>
     </div>
-
+    
+    
+   
 }
+
 
             @section scripts{
             <script type="text/javascript">
@@ -102,6 +106,17 @@
                     $('#datetimepicker4').data("DateTimePicker").maxDate(e.date);
                 });
             });
+            $(function () {
+                $('#firstClassField').val(true)
+                $('#firstClassCheck').bootstrapToggle({
+                    on:'True',
+                    off: 'False'
+                });
+                $('#firstClassCheck').change(function () {
+                    var myBool = Boolean($(this).prop('checked'));
+                    $('#firstClassField').val(myBool)
+                })
 
+            })
         </script>
 }
