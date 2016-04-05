@@ -28,12 +28,12 @@ namespace CERBookingSystemBLL
             return booking;
         }
 
-        public static List<Booking> getAllBookingsForUser(string UserId)
+        public static List<Booking> getAllBookingsForUser(int UserId)
         {
             using (var dc = new DALDataContext())
             {
                 List<Booking> userBookings = new List<Booking>();
-                userBookings = dc.Bookings.Where(x => x.UserId.Equals(UserId)).ToList();
+                userBookings = dc.Bookings.Where(x => x.UserId == UserId).ToList();
                 return userBookings;
             }
         }

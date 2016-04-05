@@ -18,7 +18,22 @@ namespace CERBookingSystem.Controllers
         }
         public ActionResult UserBookings()
         {
-            var model = new BookingModel();
+            var model = new List<BookingModel>();
+            User user = UserBLL.getUser(User.Identity.Name);
+            List<Booking> userBookings = BookingBLL.getAllBookingsForUser(user.UserId);
+            foreach(var b in userBookings)
+            {
+                TrainRoute tr = TrainRouteBLL.GetTrainRoute(b.TrainRouteId);
+                Route r = RouteBLL.getRoute(tr.RouteId);
+                model.Add(new BookingModel
+                {
+                    BookingId = b.BookingId.ToString(),
+                    source = CitiesBLL.getCity(r.Source).CityName,
+                    destination = CitiesBLL.getCity(r.Destination).CityName,
+                    status = b.statusOfBooking
+                }); 
+            }
+            
             return View(model);
         }
         
@@ -89,7 +104,7 @@ namespace CERBookingSystem.Controllers
                 BookingBLL.addBooking(dalBookingReturn);
                 TrainRouteBLL.updateSeatNumber(bookingDetails.firstClass, bookingDetails.numberOfPassengers, bookingDetails.selectedReturn.TrainRouteId);
             }
-            return View("UserBookings");
+            return RedirectToAction("UserBookings","Booking");
         }
     }
 }

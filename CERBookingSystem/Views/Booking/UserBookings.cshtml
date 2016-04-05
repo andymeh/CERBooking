@@ -1,1 +1,28 @@
-﻿
+﻿@model IEnumerable<CERBookingSystem.Models.BookingModel>
+
+
+<table class="table">
+    <tr>
+        <th>Booking Id</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Status</th>
+    </tr>
+    @foreach (var b in Model)
+    {
+        <tr>
+            <td>
+                @b.BookingId
+            </td>
+            <td>
+                @b.source
+            <td>
+                @b.destination
+            </td>
+            <td>
+                @b.status
+            </td>
+        </tr>
+    }
+</table>
+
