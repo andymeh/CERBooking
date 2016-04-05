@@ -43,7 +43,7 @@ namespace CERBookingSystemBLL
             using (var dc = new DALDataContext())
             {
                 List<Booking> userBookings = new List<Booking>();
-                userBookings = dc.Bookings.Where(x => x.statusOfBooking == "Cancelled" && x.DateCancelled.Value.Date == startDate.Date).ToList();
+                userBookings = dc.Bookings.Where(x => x.statusOfBooking == "Cancelled" && x.DateCancelled.Value.Date == startDate.Date ).ToList();
                 return userBookings.Count;
             }
         }

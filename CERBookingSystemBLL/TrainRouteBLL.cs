@@ -16,6 +16,22 @@ namespace CERBookingSystemBLL
                 dc.SubmitChanges();
             }
         }
+        public static void updateSeatNumber(bool firstClass, int noPassengers, int TrainRouteId)
+        {
+            using(var db = new DALDataContext())
+            {
+                var tr = db.TrainRoutes.FirstOrDefault(x => x.TrainRouteId == TrainRouteId);
+                if (firstClass)
+                {
+                    tr.FirstClassSeats = tr.FirstClassSeats - noPassengers;
+                }
+                else
+                {
+                    tr.EconomySeats = tr.EconomySeats - noPassengers;
+                }
+                db.SubmitChanges();
+            }
+        }
         public static void addTrainRoute(TrainRoute newTrainRoute, DateTime startDate, DateTime endDate)
         {
             using (var dc = new DALDataContext())

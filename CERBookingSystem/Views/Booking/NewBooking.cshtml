@@ -79,8 +79,19 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <input type="button" value="Confirm" onclick="location.href='@Url.Action("CompleteBooking", "Booking", new { bookingdetails = Model })'" />
-</div>
+@using (Html.BeginForm("ConfirmBooking", "Booking", FormMethod.Post))
+{
+    @Html.HiddenFor(Model => Model.selectedOutbound.TrainRouteId, new { Model.selectedOutbound.TrainRouteId })
+    @Html.HiddenFor(Model => Model.selectedReturn.TrainRouteId, new { Model.selectedReturn.TrainRouteId })
+    @Html.HiddenFor(Model => Model.usersDetails.userId, new { Model.usersDetails.userId })
+    @Html.HiddenFor(Model => Model.numberOfPassengers, new { Model.numberOfPassengers })
+    @Html.HiddenFor(Model => Model.firstClass, new { Model.firstClass })
+    @Html.HiddenFor(Model => Model.isReturn, new { Model.isReturn })
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Confirm" class="btn btn-success" />
+        </div>
+    </div>
+}
 
 

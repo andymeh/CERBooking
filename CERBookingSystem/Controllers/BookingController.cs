@@ -16,12 +16,12 @@ namespace CERBookingSystem.Controllers
         {
             return View();
         }
-
-        public ActionResult NewBooking()
+        public ActionResult UserBookings()
         {
-            return View();
+            var model = new BookingModel();
+            return View(model);
         }
-
+        
         [HttpPost]
         public ActionResult NewBooking(SearchModel newBooking)
         {
@@ -29,6 +29,7 @@ namespace CERBookingSystem.Controllers
             {
                 NewBookingModel nBooking = new NewBookingModel();
                 nBooking.isReturn = false;
+
                 TrainRoute outTrainRoute = TrainRouteBLL.GetTrainRoute(newBooking.selectedOutbound);
                 Route outRoute = RouteBLL.getRoute(outTrainRoute.RouteId);
                 nBooking.numberOfPassengers = newBooking.bookingDetails.numberOfPassengers;
@@ -73,7 +74,8 @@ namespace CERBookingSystem.Controllers
                 statusOfBooking = "Active",
                 DateBooked = DateTime.Now
             };
-            BookingBLL.
+            BookingBLL.addBooking(dalBookingOutBound);
+            TrainRouteBLL.updateSeatNumber(bookingDetails.firstClass, bookingDetails.numberOfPassengers, bookingDetails.selectedOutbound.TrainRouteId);
             if (bookingDetails.isReturn)
             {
                 Booking dalBookingReturn = new Booking
@@ -84,7 +86,10 @@ namespace CERBookingSystem.Controllers
                     statusOfBooking = "Active",
                     DateBooked = DateTime.Now
                 };
+                BookingBLL.addBooking(dalBookingReturn);
+                TrainRouteBLL.updateSeatNumber(bookingDetails.firstClass, bookingDetails.numberOfPassengers, bookingDetails.selectedReturn.TrainRouteId);
             }
+            return View("UserBookings");
         }
     }
 }

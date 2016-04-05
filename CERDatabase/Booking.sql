@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Booking]
 (
-	[BookingId] INT NOT NULL PRIMARY KEY, 
+	[BookingId] INT NOT NULL PRIMARY KEY IDENTITY, 
     [UserId] INT NOT NULL, 
     [TrainRouteId] INT NOT NULL, 
     [NoInParty] INT NOT NULL, 

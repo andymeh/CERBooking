@@ -62,10 +62,11 @@ namespace CERBookingSystem.Controllers
             //
             if (ModelState.IsValid)
             {
-                SearchModel searchDetails = new SearchModel();
+               SearchModel searchDetails = new SearchModel();
                 List<TrainRoute> outboundTrainRoutes = new List<TrainRoute>();
                 List<TrainRoute> returnTrainRoutes = new List<TrainRoute>();
 
+                searchDetails.cityDetails = getAllCityDetails();
                 searchDetails.OutboundTrainRoutes = new List<SearchTrainRoute>();
                 searchDetails.ReturnTrainRoutes = new List<SearchTrainRoute>();
 
@@ -73,6 +74,7 @@ namespace CERBookingSystem.Controllers
 
                 City sourceCity = CitiesBLL.getCity(searchTerms.bookingDetails.sourceCityId);
                 searchDetails.sourceCity = sourceCity.CityName;
+                searchDetails.bookingDetails.numberOfPassengers = searchTerms.bookingDetails.numberOfPassengers;
 
                 City destnationCity = CitiesBLL.getCity(searchTerms.bookingDetails.destinationCityId);
                 searchDetails.destCity = destnationCity.CityName;
