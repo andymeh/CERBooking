@@ -34,16 +34,16 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.LabelFor(model => model.bookingDetails.dateOutbound, htmlAttributes: new { @class = "control-label" })
                         <div id="prefetch">
-                            @Html.EditorFor(model => model.bookingDetails.dateOutbound, new { htmlAttributes = new { @id = "datetimepicker4", @class = "form-control", @placeholder = "Depart" } })
+                            @Html.EditorFor(model => model.bookingDetails.dateOutbound, new { htmlAttributes = new { @id = "datetimepicker4", @class = "form-control", @readonly = "true", @placeholder = "Depart" } })
                             @Html.ValidationMessageFor(model => model.bookingDetails.dateOutbound, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="col-md-6 selectContainer">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @Html.LabelFor(model => model.bookingDetails.dateReturn, htmlAttributes: new { @class = "control-label" })
+                        @Html.LabelFor(model => model.bookingDetails.dateReturn, htmlAttributes: new { @class = "control-label"})
                         <div id="prefetch">
-                            @Html.EditorFor(model => model.bookingDetails.dateReturn, new { htmlAttributes = new { @id = "datetimepicker5", @class = "form-control", @placeholder = "Return" } })
+                            @Html.EditorFor(model => model.bookingDetails.dateReturn, new { htmlAttributes = new { @id = "datetimepicker5", @class = "form-control",@readonly="true", @placeholder = "Return" } })
                             @Html.ValidationMessageFor(model => model.bookingDetails.dateReturn, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -92,12 +92,14 @@
             $(function () {
                 $('#datetimepicker4').datetimepicker({
                     locale: 'en-GB',
-                    format: 'DD/MM/YYYY'
+                    format: 'DD/MM/YYYY',
+                    ignoreReadonly: true
                 });
                 $('#datetimepicker5').datetimepicker({
                     useCurrent: false, //Important! See issue #1075
                     locale: 'en-GB',
-                    format: 'DD/MM/YYYY'
+                    format: 'DD/MM/YYYY',
+                    ignoreReadonly: true
                 });
                 $("#datetimepicker4").on("dp.change", function (e) {
                     $('#datetimepicker5').data("DateTimePicker").minDate(e.date);

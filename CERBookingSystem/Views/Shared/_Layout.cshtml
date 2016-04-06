@@ -29,11 +29,11 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     if (Request.IsAuthenticated && employee.Equals("False"))
                     {
-                        <li>@Html.ActionLink("Bookings", "Index", "Bookings")</li>
+                        <li>@Html.ActionLink("Bookings", "UserBookings", "Booking")</li>
                     }
                     else if (Request.IsAuthenticated && employee.Equals("True"))
                     {
-                        <li>@Html.ActionLink("Bookings", "Index", "Bookings")</li>
+                        <li>@Html.ActionLink("Bookings", "UserBookings", "Booking")</li>
                         <li>@Html.ActionLink("Manage", "Index", "TrainRoute")</li>
                     }
                     }
