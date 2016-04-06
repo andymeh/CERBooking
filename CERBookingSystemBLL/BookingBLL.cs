@@ -66,5 +66,16 @@ namespace CERBookingSystemBLL
                 return userBookings.Count;
             }
         }
+
+        public static void cancelBooking(int bookingId)
+        {
+            using(var db = new DALDataContext())
+            {
+                Booking booking = db.Bookings.FirstOrDefault(x => x.BookingId == bookingId);
+                booking.statusOfBooking = "Cancelled";
+                booking.DateCancelled = DateTime.Now;
+                db.SubmitChanges();
+            }
+        }
     }
 }

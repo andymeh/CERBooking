@@ -82,7 +82,10 @@
 @using (Html.BeginForm("ConfirmBooking", "Booking", FormMethod.Post))
 {
     @Html.HiddenFor(Model => Model.selectedOutbound.TrainRouteId, new { Model.selectedOutbound.TrainRouteId })
-    @Html.HiddenFor(Model => Model.selectedReturn.TrainRouteId, new { Model.selectedReturn.TrainRouteId })
+    if (Model.isReturn)
+    {
+        @Html.HiddenFor(Model => Model.selectedReturn.TrainRouteId, new { Model.selectedReturn.TrainRouteId })
+    }
     @Html.HiddenFor(Model => Model.usersDetails.userId, new { Model.usersDetails.userId })
     @Html.HiddenFor(Model => Model.numberOfPassengers, new { Model.numberOfPassengers })
     @Html.HiddenFor(Model => Model.firstClass, new { Model.firstClass })

@@ -4,6 +4,7 @@
     [UserId] INT NOT NULL, 
     [TrainRouteId] INT NOT NULL, 
     [NoInParty] INT NOT NULL, 
+	[FirstClass] BIT NOT NULL, 
     [statusOfBooking] NVARCHAR(20) NOT NULL, 
     [DateBooked] DATETIME NOT NULL, 
     [DateCancelled] DATETIME NULL, 

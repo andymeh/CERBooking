@@ -16,6 +16,10 @@ namespace CERBookingSystem.Controllers
         {
             return View();
         }
+        public ActionResult NewBooking()
+        {
+            return RedirectToAction("Index", "Home");
+        }
         public ActionResult UserBookings()
         {
             var model = new List<BookingModel>();
@@ -87,7 +91,8 @@ namespace CERBookingSystem.Controllers
                 UserId = bookingDetails.usersDetails.userId,
                 NoInParty = bookingDetails.numberOfPassengers,
                 statusOfBooking = "Active",
-                DateBooked = DateTime.Now
+                DateBooked = DateTime.Now,
+                FirstClass = bookingDetails.firstClass
             };
             BookingBLL.addBooking(dalBookingOutBound);
             TrainRouteBLL.updateSeatNumber(bookingDetails.firstClass, bookingDetails.numberOfPassengers, bookingDetails.selectedOutbound.TrainRouteId);
@@ -99,12 +104,26 @@ namespace CERBookingSystem.Controllers
                     UserId = bookingDetails.usersDetails.userId,
                     NoInParty = bookingDetails.numberOfPassengers,
                     statusOfBooking = "Active",
-                    DateBooked = DateTime.Now
+                    DateBooked = DateTime.Now,
+                    FirstClass = bookingDetails.firstClass
                 };
                 BookingBLL.addBooking(dalBookingReturn);
                 TrainRouteBLL.updateSeatNumber(bookingDetails.firstClass, bookingDetails.numberOfPassengers, bookingDetails.selectedReturn.TrainRouteId);
             }
             return RedirectToAction("UserBookings","Booking");
+        }
+
+        public ActionResult CancelBooking(int bookingId)
+        {
+            Booking booking = BookingBLL.getBooking(bookingId);
+            User user = UserBLL.getUser(User.Identity.Name);
+            if(booking.UserId == user.UserId || user.Employee)
+            {
+                BookingBLL.cancelBooking(bookingId);
+                int negNoInparty = 0 - booking.NoInParty;
+                TrainRouteBLL.updateSeatNumber(booking.FirstClass, negNoInparty, booking.TrainRouteId);
+            }
+            return RedirectToAction("UserBookings", "Booking");
         }
     }
 }

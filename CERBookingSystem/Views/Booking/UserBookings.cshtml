@@ -22,6 +22,12 @@
             <td>
                 @b.status
             </td>
+            <td>
+                @if (!b.status.Equals("Cancelled"))
+                {
+                    <a href='@Url.Action("CancelBooking", "Booking", new { bookingId = b.BookingId })'>Cancel</a>
+                }
+            </td>        
         </tr>
     }
 </table>
