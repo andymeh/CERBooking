@@ -5,9 +5,10 @@
 @using (Html.BeginForm("Search", "Home", FormMethod.Post, new { autocomplete = "off" }))
 {
     @Html.AntiForgeryToken()
-    <div class="jumbotron" style="background-color:#FFA500; background-size: cover">
-         <div class="container center-block" >
-            <div class="form-group">
+    
+    <div class="jumbotron" style="background-image: url('../../Content/railroad.jpg'); background-size: cover; color:black ">
+         <div class="container " >
+               <div class="form-group">
                 <div class="row">
                     <div class="col-md-6">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -80,10 +81,48 @@
                 </div>
             </div>
         </div>
-    </div>
-    
-    
    
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h4 class="panel-title"><i class="glyphicon-fast-forward"></i>Bejing</h4>
+                </div>
+                <div class="panel-body mypanel" style="word-wrap:break-word">
+                    <img class="img-responsive" src="~/Content/forbidden_city_Bejing.jpg" />
+
+
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h4 class="panel-title"><i class="glyphicon-fast-forward"></i>Quingdao</h4>
+                </div>
+                <div class="panel-body mypanel" style="word-wrap:break-word">
+                    <img class="img-responsive" src="~/Content/qingdao2.jpg" />
+                </div>
+            </div>
+
+        </div>
+            <div class="col-md-4">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h4 class="panel-title"><i class="glyphicon-fast-forward"></i>Tianjin</h4>
+                    </div>
+                    <div class="panel-body mypanel" style="word-wrap:break-word">
+                        <img class="img-responsive" src="~/Content/Tianjin2.jpg" />
+
+
+                    </div>
+                </div>
+            </div>
+    </div>
+
 }
 
 
