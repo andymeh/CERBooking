@@ -1,18 +1,19 @@
 ﻿@model CERBookingSystem.Models.SearchModel
 @{
     ViewBag.Title = "Home Page";
+
 }
 @using (Html.BeginForm("Search", "Home", FormMethod.Post, new { autocomplete = "off" }))
 {
     @Html.AntiForgeryToken()
     
-    <div class="jumbotron" style="background-image: url('../../Content/railroad.jpg'); background-size: cover; color:black ">
+    <div class="jumbotron" style="background-image: url('@Url.Content("~/Content/railroad.jpg")'); background-size: cover; color:black ">
          <div class="container " >
                <div class="form-group">
                 <div class="row">
                     <div class="col-md-6">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @Html.LabelFor(model => model.bookingDetails.sourceCityId, htmlAttributes: new { @class = "control-label" })
+                        @Html.LabelFor(model => model.bookingDetails.sourceCityId, htmlAttributes: new { @class = "control-label", @id="sourceCity"})
                         <div id="prefetch">
                             @Html.DropDownListFor(model => model.bookingDetails.sourceCityId, Model.CityListItems, new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.bookingDetails.sourceCityId, "", new { @class = "text-danger" })
@@ -23,7 +24,7 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.LabelFor(model => model.bookingDetails.destinationCityId, htmlAttributes: new { @class = "control-label" })
                         <div id="prefetch">
-                            @Html.DropDownListFor(model => model.bookingDetails.destinationCityId, Model.CityListItems, new { @class = "form-control"})
+                            @Html.DropDownListFor(model => model.bookingDetails.destinationCityId, Model.CityListItems, new { @class = "form-control" ,@id= "destinationCity"})
                             @Html.ValidationMessageFor(model => model.bookingDetails.destinationCityId, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -56,7 +57,7 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.LabelFor(model => model.bookingDetails.firstClass, htmlAttributes: new { @class = "control-label" })
                         <div>
-                            <input id="firstClassCheck"type="checkbox" checked data-toggle="toggle" data-off="Economy" data-on="First"  data-onstyle="success" >
+                            <input id="firstClassCheck" type="checkbox" checked data-toggle="toggle" data-off="Economy" data-on="First"  data-onstyle="success" >
                             @Html.HiddenFor(model => model.bookingDetails.firstClass, new { id = "firstClassField" })
                             @Html.ValidationMessageFor(model => model.bookingDetails.firstClass, "", new { @class = "text-danger" })
                         </div>
@@ -130,6 +131,7 @@
             <script type="text/javascript">
             $(function () {
                 $('#datetimepicker4').datetimepicker({
+                    minDate: moment(),
                     locale: 'en-GB',
                     format: 'DD/MM/YYYY',
                     ignoreReadonly: true
@@ -160,4 +162,37 @@
 
             })
         </script>
+                <script>
+                    
+                    $(function () {
+                        $('#sourceCity').change(function () {
+                            var districtId = $(this).val();
+
+
+                            $.ajax({
+                                url: 'Home/GetCities',
+                                type: 'POST',
+                                data: JSON.stringify({ districtId: districtId }),
+                                dataType: 'json',
+                                contentType: 'application/json',
+                                error: function (xhr) {
+                                    alert('Error: ' + xhr.statusText);
+                                },
+                                success: function (data) {
+                                    alert('Error: ' + xhr.statusText);
+                                    $.each(data, function (key, TMManagers) {
+                                        $('#destinationCity').append('<option value="0">Select One</option>');
+                                        // loop through the TM Managers and fill the dropdown
+                                        $.each(TMManagers, function (index, manager) {
+                                            $('select#destinationCity').append(
+                                                '<option value="' + manager.Id + '">'
+                                                + manager.Name +
+                                                '</option>');
+                                        });
+                                    });
+                                }
+                            });
+                        });
+                    });
+                </script>
 }

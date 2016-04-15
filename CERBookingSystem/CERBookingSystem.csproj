@@ -270,11 +270,11 @@
     <Content Include="Views\TrainRoute\AddNewTrain.cshtml" />
     <Content Include="Views\TrainRoute\AddNewRoute.cshtml" />
     <Content Include="Views\TrainRoute\AddNewTrainRoute.cshtml" />
-    <Content Include="Views\TrainRoute\Index.cshtml" />
     <Content Include="Views\TrainRoute\AddNewCity.cshtml" />
     <Content Include="Views\Booking\NewBooking.cshtml" />
     <Content Include="Views\Report\Index.cshtml" />
     <Content Include="Views\Booking\UserBookings.cshtml" />
+    <Content Include="Views\Shared\SearchLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,10 +1,27 @@
 ﻿@model CERBookingSystem.Models.newTrainRoute
-
-
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
+    if (ViewData["Message"] != null)
+    {
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <a class="close" data-dismiss="modal">×</a>
+                        <h3>Success</h3>
+                    </div>
+                    <div class="modal-body">
+                        <p>The Scheduled Train Route was added!</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="@Url.Action("AddNewTrainRoute","TrainRoute")" class="btn btn-success">Add another</a>
+                        <a href="@Url.Action("Index","Home")" class="btn btn-primary">Home</a>
+                    </div>
+                </div>
+                </div>
+        </div>
+    }
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -27,7 +44,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.startDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.startDate, new { htmlAttributes = new { @id = "datetimepicker4", @class = "form-control" } })
+                @Html.EditorFor(model => model.startDate, new { htmlAttributes = new { @id = "datetimepicker4", @class = "form-control", @autocomplete = "off" } })
                 @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -35,14 +52,29 @@
         <div class="form-group">
             @Html.LabelFor(model => model.endDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.endDate, new { htmlAttributes = new { @id = "datetimepicker5", @class = "form-control" } })
+                @Html.EditorFor(model => model.endDate, new { htmlAttributes = new { @id = "datetimepicker5", @class = "form-control", @autocomplete = "off" } })
                 @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" })
             </div>
         </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CostFirstClass, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CostFirstClass, new { htmlAttributes = new { @id = "datetimepicker5", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CostFirstClass, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CostEconomyClass, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CostEconomyClass, new { htmlAttributes = new { @id = "datetimepicker5", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CostEconomyClass, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" data-confirm="Are you sure?" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -54,6 +86,7 @@
 <script>
     $(function () {
         $('#datetimepicker4').datetimepicker({
+            minDate: moment(),
             locale: 'en-GB',
             format: 'DD/MM/YYYY'
         });
@@ -70,5 +103,18 @@
         });
     });
     </script>
-    
+    <script>
+    jQuery(document).ready(function () {
+        jQuery('[data-confirm]').click(function (e) {
+            if (!confirm(jQuery(this).attr("data-confirm"))) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(window).load(function(){
+        $('#myModal').modal('show');
+    });
+</script>
 }

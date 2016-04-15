@@ -16,6 +16,11 @@ namespace CERBookingSystem.Controllers
         {
             return View();
         }
+        /// <summary>
+        /// If the user tries to access this view when there is no 
+        /// model then the will be redirected to the home page 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult NewBooking()
         {
             return RedirectToAction("Index", "Home");
@@ -41,6 +46,11 @@ namespace CERBookingSystem.Controllers
             return View(model);
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="newBooking"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult NewBooking(SearchModel newBooking)
         {
@@ -48,12 +58,15 @@ namespace CERBookingSystem.Controllers
             {
                 NewBookingModel nBooking = new NewBookingModel();
                 nBooking.isReturn = false;
+                double totalPrice = 0;
 
                 TrainRoute outTrainRoute = TrainRouteBLL.GetTrainRoute(newBooking.selectedOutbound);
                 Route outRoute = RouteBLL.getRoute(outTrainRoute.RouteId);
                 nBooking.numberOfPassengers = newBooking.bookingDetails.numberOfPassengers;
+
                 User user = UserBLL.getUser(User.Identity.Name);
                 nBooking.usersDetails = new userDetail{userId = user.UserId, forename = user.Forename, surname = user.Surname, emailAddress = user.EmailAddress };
+
                 nBooking.selectedOutbound = new SearchTrainRoute
                 {
                     TrainRouteId = outTrainRoute.TrainRouteId,
@@ -62,11 +75,22 @@ namespace CERBookingSystem.Controllers
                     departureTime = outRoute.DepartureTime,
                     arrivalTime = outRoute.ArrivalTime
                 };
+
+                if(newBooking.bookingDetails.firstClass == true)
+                {
+                    totalPrice += outTrainRoute.CostFirstClass * nBooking.numberOfPassengers;
+                }
+                else
+                {
+                    totalPrice += outTrainRoute.CostEconomy * newBooking.bookingDetails.numberOfPassengers;
+                }
+
                 if (newBooking.selectedReturn != 0)
                 {
                     nBooking.isReturn = true;
                     TrainRoute retTrainRoute = TrainRouteBLL.GetTrainRoute(newBooking.selectedReturn);
                     Route retRoute = RouteBLL.getRoute(retTrainRoute.RouteId);
+
                     nBooking.selectedReturn = new SearchTrainRoute
                     {
                         TrainRouteId = retTrainRoute.TrainRouteId,
@@ -75,13 +99,27 @@ namespace CERBookingSystem.Controllers
                         departureTime = retRoute.DepartureTime,
                         arrivalTime = retRoute.ArrivalTime
                     };
-                }
 
+                    if (newBooking.bookingDetails.firstClass == true)
+                    {
+                        totalPrice += outTrainRoute.CostFirstClass * nBooking.numberOfPassengers;
+                    }
+                    else
+                    {
+                        totalPrice += outTrainRoute.CostEconomy * newBooking.bookingDetails.numberOfPassengers;
+                    }
+                }
+                nBooking.price = totalPrice;
                 return View(nBooking);
             }
             return View(Url.RequestContext.ToString(), newBooking);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bookingDetails"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult ConfirmBooking(NewBookingModel bookingDetails)
         {
@@ -94,8 +132,10 @@ namespace CERBookingSystem.Controllers
                 DateBooked = DateTime.Now,
                 FirstClass = bookingDetails.firstClass
             };
+
             BookingBLL.addBooking(dalBookingOutBound);
             TrainRouteBLL.updateSeatNumber(bookingDetails.firstClass, bookingDetails.numberOfPassengers, bookingDetails.selectedOutbound.TrainRouteId);
+
             if (bookingDetails.isReturn)
             {
                 Booking dalBookingReturn = new Booking
@@ -113,6 +153,11 @@ namespace CERBookingSystem.Controllers
             return RedirectToAction("UserBookings","Booking");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bookingId"></param>
+        /// <returns></returns>
         public ActionResult CancelBooking(int bookingId)
         {
             Booking booking = BookingBLL.getBooking(bookingId);

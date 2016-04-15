@@ -11,25 +11,16 @@ namespace CERBookingSystem.Controllers
 {
     public class TrainRouteController : Controller
     {
-        // GET: TrainRoute
-        public ActionResult Index()
-        {
-            ViewBag.ShowMenu = true;
-            return View();
-        }
         public ActionResult AddNewTrain()
         {
-            ViewBag.ShowMenu = true;
             return View();
         }
         public ActionResult AddNewCity()
         {
-            ViewBag.ShowMenu = true;
             return View();
         }
         public ActionResult AddNewRoute()
         {
-            ViewBag.ShowMenu = true;
             var model = new newRoute();
             
             model.cityDetails = getAllCityDetails();
@@ -37,7 +28,6 @@ namespace CERBookingSystem.Controllers
         }
         public ActionResult AddNewTrainRoute()
         {
-            ViewBag.ShowMenu = true;
             var model = new newTrainRoute();
             
             model.routeDetails = getAllRouteDetail();
@@ -84,7 +74,6 @@ namespace CERBookingSystem.Controllers
         [HttpPost]
         public ActionResult AddNewTrain(newTrain train)
         {
-            ViewBag.ShowMenu = true;
             if (ModelState.IsValid)
             {
                 Train dalTrain = new Train
@@ -93,6 +82,7 @@ namespace CERBookingSystem.Controllers
                     CapacityEconomy = train.secondClassCapacity
                 };
                 TrainBLL.addTrain(dalTrain);
+                ViewData["Message"] = "Success";
             }
             return View(train);
         }
@@ -100,7 +90,6 @@ namespace CERBookingSystem.Controllers
         [HttpPost]
         public ActionResult AddNewRoute(newRoute route)
         {
-            ViewBag.ShowMenu = true;
             if (ModelState.IsValid)
             {
                 Route dalRoute = new Route
@@ -115,13 +104,13 @@ namespace CERBookingSystem.Controllers
             }
             var model = new newRoute();
             model.cityDetails = getAllCityDetails();
+            ViewData["Message"] = "Success";
             return View(model);
         }
         [Authorize]
         [HttpPost]
         public ActionResult AddNewTrainRoute(newTrainRoute _trainRoute)
         {
-            ViewBag.ShowMenu = true;
             if (ModelState.IsValid)
             {
                 Train train = TrainBLL.getTrain(_trainRoute.TrainId);
@@ -130,7 +119,9 @@ namespace CERBookingSystem.Controllers
                     TrainId = _trainRoute.TrainId,
                     RouteId = _trainRoute.RouteId,
                     FirstClassSeats = train.CapacityFirst,
-                    EconomySeats = train.CapacityEconomy
+                    EconomySeats = train.CapacityEconomy,
+                    CostFirstClass = _trainRoute.CostFirstClass,
+                    CostEconomy = _trainRoute.CostEconomyClass
                 };
                 TrainRouteBLL.addTrainRoute(newTrainRoute, _trainRoute.startDate, _trainRoute.endDate);
             }
@@ -138,14 +129,13 @@ namespace CERBookingSystem.Controllers
             var model = new newTrainRoute();
             model.routeDetails = getAllRouteDetail();
             model.trainDetails = getAllTrainDetail();
-
+            ViewData["Message"] = "Success";
             return View(model);
         }
         [Authorize]
         [HttpPost]
         public ActionResult AddNewCity(newCity _city)
         {
-            ViewBag.ShowMenu = true;
             if (ModelState.IsValid)
             {
                 City city = CitiesBLL.getCity(_city.cityName);
@@ -153,6 +143,7 @@ namespace CERBookingSystem.Controllers
                 {
                     City dalCity = new City { CityName = _city.cityName };
                     CitiesBLL.addCity(dalCity);
+                    ViewData["Message"] = "Success";
                     return View();
                 }
                 else

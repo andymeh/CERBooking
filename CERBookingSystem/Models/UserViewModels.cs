@@ -38,7 +38,7 @@ namespace CERBookingSystem.Models
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string UserEmail { get; set; }
 
-        [Display(Name = "Email*")]
+        [Display(Name = "Confirm Email*")]
         [Required(ErrorMessage = "Email Address is required")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string UserEmail2 { get; set; }
@@ -56,6 +56,11 @@ namespace CERBookingSystem.Models
         public string password { get; set; }
         [Display(Name = "Rememeber me")]
         public bool rememberMe { get; set; }
+    }
+    public class SearchUserLogin
+    {
+        public UserLogin loginInfo {get; set;}
+        public SearchModel searchModel { get; set; }
     }
 
     public class userDetail

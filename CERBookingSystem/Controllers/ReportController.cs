@@ -38,6 +38,8 @@ namespace CERBookingSystem.Controllers
                 });
                 from = from.AddDays(1);
             }
+            ticketReport.ListOfBookedTickets.OrderBy(x => x.dateOfBooking);
+            ticketReport.ListOfCancelledTickets.OrderBy(x => x.dateOfCancellation);
             return ticketReport;
         }
 

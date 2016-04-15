@@ -23,6 +23,13 @@ namespace CERBookingSystem.Controllers
             var model = new UserLogin();
             return PartialView("Login", model);
         }
+        public PartialViewResult SearchLogin(SearchModel searchDetails)
+        {
+            SearchUserLogin model = new SearchUserLogin();
+            model.loginInfo = new UserLogin();
+            model.searchModel = searchDetails;
+            return PartialView("SearchLogin", model);
+        }
         [HttpPost]
         public ActionResult Login(UserLogin user)
         {
@@ -31,7 +38,7 @@ namespace CERBookingSystem.Controllers
                 if (UserBLL.isUserValid(user.emailAddress, user.password))
                 {
                     FormsAuthentication.SetAuthCookie(user.emailAddress, user.rememberMe);
-                    return RedirectToAction("Index", "Home");
+                    return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
                 }
                 else
                 {
@@ -40,9 +47,25 @@ namespace CERBookingSystem.Controllers
             }
             return View(user);
         }
-        [HttpGet]
-        [Route("GetCities")]
-        public JsonResult GetCities()
+        [HttpPost]
+        public ActionResult SearchLogin(SearchUserLogin searchLoginDetails)
+        {
+            if (ModelState.IsValid)
+            {
+                if (UserBLL.isUserValid(searchLoginDetails.loginInfo.emailAddress, searchLoginDetails.loginInfo.password))
+                {
+                    FormsAuthentication.SetAuthCookie(searchLoginDetails.loginInfo.emailAddress, searchLoginDetails.loginInfo.rememberMe);
+                    return Search(searchLoginDetails.searchModel);
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Login data is incorrect!");
+                }
+            }
+            return View(searchLoginDetails.loginInfo);
+        }
+        [HttpPost]
+        public JsonResult GetCities(int districtId)
         {
             List<string> cityNameList = new List<string>();
             List<City> cities = CitiesBLL.getAllCities();

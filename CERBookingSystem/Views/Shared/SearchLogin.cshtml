@@ -1,0 +1,57 @@
+﻿@model CERBookingSystem.Models.SearchUserLogin
+
+<div class="modal fade" id="searchlogin-modal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="myModalLabel" style="display: none;">
+    <div class="modal-dialog">
+        <div class="loginmodal-container">
+            <h1>Login to Your Account</h1><br>
+            @using (Html.BeginForm("SearchLogin", "Home", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.EditorFor(model => model.loginInfo.emailAddress, new { htmlAttributes = new { @type = "text", name = "user", placeholder = "Email" } })
+                    @Html.ValidationMessageFor(model => model.loginInfo.emailAddress, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.EditorFor(model => model.loginInfo.password, new { htmlAttributes = new { @type = "password", @name = "pass", @placeholder = "Password" } })
+                    @Html.ValidationMessageFor(model => model.loginInfo.password, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    Remember Me
+                    <div class="checkbox" , style="float:right">
+                        @Html.EditorFor(model => model.loginInfo.rememberMe, new { htmlAttributes = new { @type = "checkbox", @name = "check" } })
+                        @Html.ValidationMessageFor(model => model.loginInfo.rememberMe, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @Html.HiddenFor(model => Model.searchModel.bookingDetails.sourceCityId)
+                @Html.HiddenFor(model => Model.searchModel.bookingDetails.destinationCityId)
+                @Html.HiddenFor(model => Model.searchModel.bookingDetails.dateOutbound)
+                @Html.HiddenFor(model => Model.searchModel.bookingDetails.dateReturn)
+                @Html.HiddenFor(model => Model.searchModel.bookingDetails.numberOfPassengers)
+                @Html.HiddenFor(model => Model.searchModel.bookingDetails.firstClass)
+
+                        <div class="form-group">
+                            <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+                        </div>
+            }
+
+            <div class="login-help">
+                <a href='@Url.Action("Register", "User")'>New Hub</a> - <a href='@Url.Action("NewUser", "User")'>Join Hub</a> - <a href="#">Forgot Password</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $('#searchlogin-modal').modal('show');
+    });
+
+    </script>
+}

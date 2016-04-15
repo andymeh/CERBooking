@@ -10,6 +10,7 @@ namespace CERBookingSystem.Models
 {
     public class SearchModel
     {
+        
         public List<SearchTrainRoute> OutboundTrainRoutes { get; set; }
         public List<SearchTrainRoute> ReturnTrainRoutes { get; set; }
         public NewBookingModel bookingDetails { get; set; }

@@ -125,6 +125,14 @@ namespace CERBookingSystem.Models
             }
             set { _endDate = value; }
         }
+
+        [Display(Name = "Cost of First Class Ticket")]
+        [Required(ErrorMessage = "Please enter the price for a first class ticket!")]
+        public double CostFirstClass { get; set; }
+
+        [Display(Name = "Cost of Economy Class Ticket")]
+        [Required(ErrorMessage = "Please enter the price for an economy class ticket!")]
+        public double CostEconomyClass { get; set; }
     }
 
     public class TrainDetail

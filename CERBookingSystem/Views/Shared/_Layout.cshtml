@@ -34,8 +34,17 @@
                     else if (Request.IsAuthenticated && employee.Equals("True"))
                     {
                         <li>@Html.ActionLink("Bookings", "UserBookings", "Booking")</li>
-                        <li>@Html.ActionLink("Manage", "Index", "TrainRoute")</li>
-                    }
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Admin<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("New City", "AddNewCity", "TrainRoute")</li>
+                                <li>@Html.ActionLink("New Train", "AddNewTrain", "TrainRoute")</li>
+                                <li>@Html.ActionLink("New Route", "AddNewRoute", "TrainRoute")</li>
+                                <li>@Html.ActionLink("New Scheduled Route", "AddNewTrainRoute", "TrainRoute")</li>
+                            </ul>
+                        </li>
+                        <li>@Html.ActionLink("Reports", "Index", "Report")</li>
+                        }
                     }
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -54,21 +63,6 @@
 </div>
         </div>
     </div>
-    @if (ViewBag.ShowMenu == true)
-    {
-        <div class="navbar">
-            <div class="container">
-                <div class="navbar-collapse collapse">
-                    <ul style="display: inline-block; float:none; " class="nav navbar-nav">
-                        <li>@Html.ActionLink("New City", "AddNewCity", "TrainRoute")</li>
-                        <li>@Html.ActionLink("New Train", "AddNewTrain", "TrainRoute")</li>
-                        <li>@Html.ActionLink("New Route", "AddNewRoute", "TrainRoute")</li>
-                        <li>@Html.ActionLink("New Train", "AddNewTrainRoute", "TrainRoute")</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    }
     <div class="container body-content">
         @RenderBody()
         @Html.Partial("Login", new CERBookingSystem.Models.UserLogin())

@@ -3,6 +3,26 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+    if (ViewData["Message"] != null)
+    {
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <a class="close" data-dismiss="modal">×</a>
+                        <h3>Success</h3>
+                    </div>
+                    <div class="modal-body">
+                        <p>The City was added sucessfully to the database</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="@Url.Action("AddNewCity","TrainRoute")" class="btn btn-success">Add another</a>
+                        <a href="@Url.Action("Index","Home")" class="btn btn-primary">Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
     <div class="row" >
         <div class="col-md-12"  >
             <div class="panel panel-primary" >
@@ -20,7 +40,7 @@
                         </div>
                     </div>
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-default" />
+                        <input type="submit" data-confirm="Are you sure?" value="Create" class="btn btn-default" />
                     </div>
                 </div>
                 <div class="panel-footer">
@@ -31,4 +51,20 @@
             </div>
         </div>
     
+}
+@section scripts{
+    <script>
+    jQuery(document).ready(function () {
+        jQuery('[data-confirm]').click(function (e) {
+            if (!confirm(jQuery(this).attr("data-confirm"))) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(window).load(function(){
+        $('#myModal').modal('show');
+    });
+</script>
 }

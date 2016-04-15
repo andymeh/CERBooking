@@ -45,7 +45,9 @@ namespace CERBookingSystemBLL
                         RouteId = newTrainRoute.RouteId,
                         Date = startDate,
                         FirstClassSeats = newTrainRoute.FirstClassSeats,
-                        EconomySeats = newTrainRoute.EconomySeats
+                        EconomySeats = newTrainRoute.EconomySeats,
+                        CostFirstClass = newTrainRoute.CostFirstClass,
+                        CostEconomy = newTrainRoute.CostEconomy
                     };
                     lstTrainRoutes.Add(tobeSubmitted);
                     startDate = startDate.AddDays(1);

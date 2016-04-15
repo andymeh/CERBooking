@@ -60,7 +60,7 @@ namespace CERBookingSystem.Controllers
                             };
                             UserBLL.addNewUser(dalUser);
                             FormsAuthentication.SetAuthCookie(dalUser.EmailAddress, false);
-                            RedirectToAction("Index", "Home");
+                            ViewData["Message"] = "Success";
                         }
                         else
                         {
@@ -104,7 +104,7 @@ namespace CERBookingSystem.Controllers
                                     Employee = true
                                 };
                                 UserBLL.addNewUser(dalUser);
-                                RedirectToAction("Index", "Home");
+                                ViewData["Message"] = "Success";
                             }
                             else
                             {
