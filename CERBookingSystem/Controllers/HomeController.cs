@@ -88,10 +88,12 @@ namespace CERBookingSystem.Controllers
                SearchModel searchDetails = new SearchModel();
                 List<TrainRoute> outboundTrainRoutes = new List<TrainRoute>();
                 List<TrainRoute> returnTrainRoutes = new List<TrainRoute>();
+                searchDetails.bookingDetails = new NewBookingModel();
 
                 searchDetails.cityDetails = getAllCityDetails();
                 searchDetails.OutboundTrainRoutes = new List<SearchTrainRoute>();
                 searchDetails.ReturnTrainRoutes = new List<SearchTrainRoute>();
+                searchDetails.bookingDetails.isReturn = false;
 
                 searchDetails.bookingDetails = searchTerms.bookingDetails;
 
@@ -121,12 +123,16 @@ namespace CERBookingSystem.Controllers
                             departureTime = route.DepartureTime,
                             arrivalTime = route.ArrivalTime,
                             firstSeats = tr.FirstClassSeats,
-                            econSeats = tr.EconomySeats
+                            econSeats = tr.EconomySeats,
+                            costEconClass = tr.CostEconomy,
+                            costFirstClass = tr.CostFirstClass
+                            
                         });
                     }
 
                     if (searchTerms.bookingDetails.dateReturn != null && searchTerms.bookingDetails.dateReturn != DateTime.MinValue)
                     {
+                        searchDetails.bookingDetails.isReturn = true;
                         List<Route> ReturnRoutes = RouteBLL.getRoutes(destnationCity, sourceCity);
                         foreach (var route in ReturnRoutes)
                         {
@@ -144,7 +150,9 @@ namespace CERBookingSystem.Controllers
                                 departureTime = route.DepartureTime,
                                 arrivalTime = route.ArrivalTime,
                                 firstSeats = tr.FirstClassSeats,
-                                econSeats = tr.EconomySeats
+                                econSeats = tr.EconomySeats,
+                                costEconClass = tr.CostEconomy,
+                                costFirstClass = tr.CostFirstClass
                             });
                         }
                     }

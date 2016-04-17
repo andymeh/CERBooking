@@ -51,7 +51,7 @@
                     @if (Request.IsAuthenticated)
                     {
                         string username = "Welcome " + Html.Action("UserName", "User", new { emailAddress = User.Identity.Name }).ToString();
-                        <li>@Html.ActionLink(username, "LogOut", "User")</li>
+                        <li><a onclick="location.href='@Url.Action("UserAccount", "User", new { emailAddress = User.Identity.Name })'">@username</a></li>
                         <li>@Html.ActionLink("Log Out", "LogOut", "User")</li>
                     }
                     else

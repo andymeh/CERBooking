@@ -275,6 +275,7 @@
     <Content Include="Views\Report\Index.cshtml" />
     <Content Include="Views\Booking\UserBookings.cshtml" />
     <Content Include="Views\Shared\SearchLogin.cshtml" />
+    <Content Include="Views\User\UserAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

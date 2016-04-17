@@ -2,26 +2,50 @@
 
 @using (Html.BeginForm("NewBooking", "Booking", FormMethod.Post))
 {
+    <h1>Outbound - @Model.bookingDetails.dateOutbound.ToString("MMMM dd")</h1>
     <div id="lstOut" class="list-group" style="padding-top:20px">
         @foreach (var outTrains in Model.OutboundTrainRoutes)
         {
             <a id="@outTrains.TrainRouteId" class="list-group-item">
-                <h4 class="list-group-item-heading">@Model.sourceCity  :  @outTrains.departureTime</h4>
+                <h4 class="list-group-item-text">@Model.sourceCity  :  @outTrains.departureTime</h4>
+                @if (Model.bookingDetails.firstClass)
+                {
+                    <h4 class="list-group-item-text pull-right">@String.Format("{0:C}", outTrains.costFirstClass)</h4>}
+                else
+                {
+                    <h4 class="list-group-item-text pull-right">@String.Format("{0:C}", outTrains.costEconClass)</h4>}
                 <h4 class="list-group-item-text">@Model.destCity  :  @outTrains.arrivalTime</h4>
+                
             </a>
         }
     </div>
-    <div id="lstReturn" class="list-group">
-        @foreach (var retTrains in Model.ReturnTrainRoutes)
-        {
-            <a id="@retTrains.TrainRouteId" class="list-group-item">
-                <h4 class="list-group-item-heading">@Model.destCity  :  @retTrains.departureTime</h4>
-                <h4 class="list-group-item-text">@Model.sourceCity  :  @retTrains.arrivalTime</h4>
-            </a>
-        }
-    </div>
+    if (Model.bookingDetails.isReturn)
+    {
+        <h1>Return - @Model.bookingDetails.dateReturn.Value.ToString("MMMM dd")</h1>
+        <div id="lstReturn" class="list-group">
+            @foreach (var retTrains in Model.ReturnTrainRoutes)
+            {
+                <a id="@retTrains.TrainRouteId" class="list-group-item">
+                    <h4 class="list-group-item-text">@Model.destCity  :  @retTrains.departureTime</h4>
+                    @if (Model.bookingDetails.firstClass)
+                    {
+                        <h2><span class="pull-right">£ @retTrains.costFirstClass</span></h2>
+                    }
+                    else
+                    {
+                        <h2><span class="pull-right"> retTrains.costEconClass</span></h2>
+                    }
+                    <h4 class="list-group-item-text">@Model.sourceCity  :  @retTrains.arrivalTime</h4>
+
+                </a>
+            }
+        </div>
+    }
+
     @Html.HiddenFor(Model => Model.selectedOutbound)
     @Html.HiddenFor(Model => Model.selectedReturn)
+    @Html.HiddenFor(Model => Model.bookingDetails.dateOutbound, new { Model.bookingDetails.dateOutbound })
+    @Html.HiddenFor(Model => Model.bookingDetails.dateReturn, new { Model.bookingDetails.dateReturn })
     @Html.HiddenFor(Model => Model.bookingDetails.numberOfPassengers, new { Model.bookingDetails.numberOfPassengers })
     @Html.HiddenFor(Model => Model.bookingDetails.firstClass, new { Model.bookingDetails.firstClass })
     @Html.HiddenFor(Model => Model.bookingDetails.isReturn, new { Model.bookingDetails.isReturn })
@@ -29,8 +53,8 @@
     if (Request.IsAuthenticated)
     {
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Continue" class="btn btn-default" />
+            <div class="col-md-4 col-md-offset-8">
+                <input type="submit" value="Continue" class="btn-lg btn-success pull-right" />
             </div>
         </div>
     }

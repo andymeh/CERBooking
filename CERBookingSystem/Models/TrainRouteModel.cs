@@ -102,7 +102,6 @@ namespace CERBookingSystem.Models
         private DateTime _startDate = DateTime.MinValue;
         [Display(Name = "Start Date*")]
         [Required(ErrorMessage = "Please select a start date!")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime startDate
         {
             get
@@ -116,7 +115,6 @@ namespace CERBookingSystem.Models
 
         [Display(Name = "End Date*")]
         [Required(ErrorMessage = "Please select an end date!")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime endDate
         {
             get
@@ -164,5 +162,7 @@ namespace CERBookingSystem.Models
         public TimeSpan arrivalTime { get; set; }
         public int firstSeats { get; set; }
         public int econSeats { get; set; }
+        public double costFirstClass { get; set; }
+        public double costEconClass { get; set; }
     }
 }

@@ -81,6 +81,19 @@ namespace CERBookingSystem.Controllers
         }
 
         [Authorize]
+        public ActionResult UserAccount(String emailAddress)
+        {
+            User user = UserBLL.getUser(emailAddress);
+            var model = new userDetail
+            {
+                emailAddress = emailAddress,
+                forename = user.Forename,
+                surname = user.Surname
+            };
+            return View(model);
+        }
+
+        [Authorize]
         [HttpPost]
         public ActionResult RegisterNewEmployee(newUserModel newUser)
         {

@@ -110,6 +110,7 @@
                 e.preventDefault();
             }
         });
+        jQuery.validator.methods["date"] = function (value, element) { return true; }
     });
 </script>
 <script type="text/javascript">

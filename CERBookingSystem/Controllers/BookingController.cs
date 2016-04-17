@@ -63,6 +63,8 @@ namespace CERBookingSystem.Controllers
                 TrainRoute outTrainRoute = TrainRouteBLL.GetTrainRoute(newBooking.selectedOutbound);
                 Route outRoute = RouteBLL.getRoute(outTrainRoute.RouteId);
                 nBooking.numberOfPassengers = newBooking.bookingDetails.numberOfPassengers;
+                nBooking.dateOutbound = newBooking.bookingDetails.dateOutbound;
+                nBooking.dateReturn = newBooking.bookingDetails.dateReturn;
 
                 User user = UserBLL.getUser(User.Identity.Name);
                 nBooking.usersDetails = new userDetail{userId = user.UserId, forename = user.Forename, surname = user.Surname, emailAddress = user.EmailAddress };
@@ -110,6 +112,7 @@ namespace CERBookingSystem.Controllers
                     }
                 }
                 nBooking.price = totalPrice;
+                
                 return View(nBooking);
             }
             return View(Url.RequestContext.ToString(), newBooking);
