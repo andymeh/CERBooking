@@ -202,6 +202,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CERlogo.png" />
+    <Content Include="Content\ContactUs.png" />
     <Content Include="Content\forbidden_city_Bejing.jpg" />
     <Content Include="Content\qingdao2.jpg" />
     <Content Include="Content\railroad.jpg" />
@@ -277,6 +278,7 @@
     <Content Include="Views\Booking\UserBookings.cshtml" />
     <Content Include="Views\Shared\SearchLogin.cshtml" />
     <Content Include="Views\User\UserAccount.cshtml" />
+    <Content Include="Views\Home\ContactUs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
