@@ -39,7 +39,9 @@ namespace CERBookingSystem.Controllers
                     BookingId = b.BookingId.ToString(),
                     source = CitiesBLL.getCity(r.Source).CityName,
                     destination = CitiesBLL.getCity(r.Destination).CityName,
-                    status = b.statusOfBooking
+                    status = b.statusOfBooking,
+                    dateOutbound = tr.Date,
+                    dateReturn = tr.Date
                 }); 
             }
             
@@ -104,11 +106,11 @@ namespace CERBookingSystem.Controllers
 
                     if (newBooking.bookingDetails.firstClass == true)
                     {
-                        totalPrice += outTrainRoute.CostFirstClass * nBooking.numberOfPassengers;
+                        totalPrice += retTrainRoute.CostFirstClass * nBooking.numberOfPassengers;
                     }
                     else
                     {
-                        totalPrice += outTrainRoute.CostEconomy * newBooking.bookingDetails.numberOfPassengers;
+                        totalPrice += retTrainRoute.CostEconomy * newBooking.bookingDetails.numberOfPassengers;
                     }
                 }
                 nBooking.price = totalPrice;

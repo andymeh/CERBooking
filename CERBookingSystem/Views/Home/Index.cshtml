@@ -57,7 +57,7 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.LabelFor(model => model.bookingDetails.firstClass, htmlAttributes: new { @class = "control-label" })
                         <div>
-                            <input id="firstClassCheck" type="checkbox" checked data-toggle="toggle" data-off="Economy" data-on="First"  data-onstyle="success" >
+                            <input id="firstClassCheck" type="checkbox" data-toggle="toggle" data-off="Economy" data-on="First"  data-onstyle="success" >
                             @Html.HiddenFor(model => model.bookingDetails.firstClass, new { id = "firstClassField" })
                             @Html.ValidationMessageFor(model => model.bookingDetails.firstClass, "", new { @class = "text-danger" })
                         </div>

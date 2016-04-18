@@ -4,6 +4,7 @@
 <table class="table">
     <tr>
         <th>Booking Id</th>
+        <th>Date</th>
         <th>From</th>
         <th>To</th>
         <th>Status</th>
@@ -15,6 +16,9 @@
                 @b.BookingId
             </td>
             <td>
+                @b.dateOutbound.Date.ToString("dd/MM/yy")
+            </td>
+            <td>
                 @b.source
             <td>
                 @b.destination
@@ -23,7 +27,7 @@
                 @b.status
             </td>
             <td>
-                @if (!b.status.Equals("Cancelled"))
+                @if (!b.status.Equals("Cancelled") && (DateTime.Now.Date <= b.dateOutbound.Date || DateTime.Now.Date <= b.dateReturn.Date))
                 {
                     <a href='@Url.Action("CancelBooking", "Booking", new { bookingId = b.BookingId })'>Cancel</a>
                 }

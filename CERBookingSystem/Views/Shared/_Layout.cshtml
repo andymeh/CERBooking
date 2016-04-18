@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="icon" href="@Url.Content("~/Content/CERlogo.png")">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/bootstrap-datetimepicker.css")
@@ -22,6 +23,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("China Express Railways", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <img src="@Url.Content("~/Content/CERlogo.png")" class="navbar-brand">
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -56,8 +58,8 @@
                     }
                     else
                     {
-                        <li><button type = "button" class="btn btn-success" onclick="location.href='@Url.Action("Register", "User")'">Register</button></li>
-                        <li><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login-modal">Sign In</button></li>
+                        <li><button type = "button" class="btn btn-success navbar-right" onclick="location.href='@Url.Action("Register", "User")'">Register</button></li>
+                        <li><button type="button" class="btn btn-primary navbar-right" data-toggle="modal" data-target="#login-modal">Sign In</button></li>
                     }
                 </ul>
 </div>
