@@ -18,6 +18,11 @@ namespace CERBookingSystem.Controllers
             model.cityDetails = getAllCityDetails();
             return View(model);
         }
+        public ActionResult ContactUs()
+        {
+         
+            return View();
+        }
         public PartialViewResult Login()
         {
             var model = new UserLogin();
