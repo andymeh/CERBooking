@@ -29,11 +29,11 @@
                     <h4 class="list-group-item-text">@Model.destCity  :  @retTrains.departureTime</h4>
                     @if (Model.bookingDetails.firstClass)
                     {
-                        <h2><span class="pull-right">£ @retTrains.costFirstClass</span></h2>
+                        <h4 class="list-group-item-text pull-right">@String.Format("{0:C}", retTrains.costFirstClass)</h4>
                     }
                     else
                     {
-                        <h2><span class="pull-right"> retTrains.costEconClass</span></h2>
+                        <h4 class="list-group-item-text pull-right">@String.Format("{0:C}", retTrains.costEconClass)</h4>
                     }
                     <h4 class="list-group-item-text">@Model.sourceCity  :  @retTrains.arrivalTime</h4>
 
