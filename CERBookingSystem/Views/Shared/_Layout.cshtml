@@ -29,8 +29,9 @@
                 <ul class="nav navbar-nav">
                     @{string employee = Html.Action("IsEmployee", "User", new { emailAddress = User.Identity.Name }).ToString();
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    if (Request.IsAuthenticated && employee.Equals("False"))
-                    {
+                    <li>@Html.ActionLink("Contact Us", "ContactUs", "Home")</li>
+                        if (Request.IsAuthenticated && employee.Equals("False"))
+                        {
                         <li>@Html.ActionLink("Bookings", "UserBookings", "Booking")</li>
                     }
                     else if (Request.IsAuthenticated && employee.Equals("True"))
