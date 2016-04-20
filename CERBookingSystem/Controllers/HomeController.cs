@@ -20,7 +20,6 @@ namespace CERBookingSystem.Controllers
         }
         public ActionResult ContactUs()
         {
-         
             return View();
         }
         public PartialViewResult Login()
@@ -60,7 +59,8 @@ namespace CERBookingSystem.Controllers
                 if (UserBLL.isUserValid(searchLoginDetails.loginInfo.emailAddress, searchLoginDetails.loginInfo.password))
                 {
                     FormsAuthentication.SetAuthCookie(searchLoginDetails.loginInfo.emailAddress, searchLoginDetails.loginInfo.rememberMe);
-                    return Search(searchLoginDetails.searchModel);
+                    var searchView = Search(searchLoginDetails.searchModel);
+                    return searchView;
                 }
                 else
                 {
@@ -161,11 +161,29 @@ namespace CERBookingSystem.Controllers
                             });
                         }
                     }
-                    return View("Search", searchDetails);
+                    if(searchDetails.OutboundTrainRoutes.Count > 0)
+                    {
+                        if (!searchDetails.bookingDetails.isReturn)
+                        {
+                            return View("Search", searchDetails);
+                        }
+                        else if (searchDetails.ReturnTrainRoutes.Count > 0)
+                        {
+                            return View("Search", searchDetails);
+                        }
+                        else
+                        {
+                            ViewData["Message"] = "Success";
+                        }
+                    }
+                    else
+                    {
+                        ViewData["Message"] = "Success";
+                    }
                 }
                 else if(sourceCity == null)
                 {
-                   ModelState.AddModelError("", "Username already exists");
+                   ModelState.AddModelError("", "Please select a source city.");
                 }
             }
             searchTerms.cityDetails = getAllCityDetails();

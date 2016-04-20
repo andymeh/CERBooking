@@ -58,6 +58,19 @@ namespace CERBookingSystem.Controllers
         {
             if (Request.IsAuthenticated)
             {
+                //if(newBooking.selectedOutbound == 0 || newBooking.selectedReturn == 0)
+                //{
+                //    if(newBooking.selectedOutbound == 0)
+                //    {
+                //        ViewData["Message"] = "Error";
+                //        return View("../Home/Search", newBooking);
+                //    }
+                //    else if(newBooking.bookingDetails.isReturn && newBooking.selectedReturn == 0)
+                //    {
+                //        ViewData["Message"] = "Error";
+                //        return View("../Home/Search", newBooking);
+                //    }
+                //}
                 NewBookingModel nBooking = new NewBookingModel();
                 nBooking.isReturn = false;
                 double totalPrice = 0;

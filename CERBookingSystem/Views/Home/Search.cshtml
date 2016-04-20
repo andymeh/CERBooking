@@ -44,6 +44,9 @@
 
     @Html.HiddenFor(Model => Model.selectedOutbound)
     @Html.HiddenFor(Model => Model.selectedReturn)
+    
+    @Html.HiddenFor(Model => Model.sourceCity)
+    @Html.HiddenFor(Model => Model.destCity)
     @Html.HiddenFor(Model => Model.bookingDetails.dateOutbound, new { Model.bookingDetails.dateOutbound })
     @Html.HiddenFor(Model => Model.bookingDetails.dateReturn, new { Model.bookingDetails.dateReturn })
     @Html.HiddenFor(Model => Model.bookingDetails.numberOfPassengers, new { Model.bookingDetails.numberOfPassengers })
@@ -66,6 +69,25 @@
         @Html.Partial("SearchLogin", userSearchModel);
         <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Register", "User")'">Register</button>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login-modal">Sign In</button>
+}
+@if (ViewData["Message"] != null)
+{
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a class="close" data-dismiss="modal">×</a>
+                    <h3>Oops!</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Please select your journeys!</p>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-success" data-dismiss="modal">Ok</a>
+                </div>
+            </div>
+        </div>
+    </div>
 }
 
 @section scripts{
@@ -91,5 +113,9 @@
         $('#searchlogin-modal').modal('show');
     });
 </script>
-      
+      <script type="text/javascript">
+    $(window).load(function(){
+        $('#myModal').modal('show');
+    });
+</script>
 }

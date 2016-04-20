@@ -6,7 +6,7 @@
 @using (Html.BeginForm("Search", "Home", FormMethod.Post, new { autocomplete = "off" }))
 {
     @Html.AntiForgeryToken()
-    
+    @Html.ValidationSummary(true, "Top", new { @class = "text-danger" })
     <div class="jumbotron" style="background-image: url('@Url.Content("~/Content/railroad.jpg")'); background-size: cover; color:black ">
          <div class="container " >
                <div class="form-group">
@@ -129,6 +129,26 @@
 
 }
 
+@if (ViewData["Message"] != null)
+    {
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">×</a>
+                <h3>Oops!</h3>
+            </div>
+            <div class="modal-body">
+                <p>No routes were found, please check your search criteria.</p>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-success" data-dismiss="modal">Ok</a>
+            </div>
+        </div>
+    </div>
+</div>
+    }
+
 
             @section scripts{
             <script type="text/javascript">
@@ -198,4 +218,9 @@
                         });
                     });
                 </script>
+<script type="text/javascript">
+    $(window).load(function(){
+        $('#myModal').modal('show');
+    });
+</script>
 }
