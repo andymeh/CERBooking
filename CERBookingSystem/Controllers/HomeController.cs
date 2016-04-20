@@ -12,21 +12,39 @@ namespace CERBookingSystem.Controllers
 {
     public class HomeController : Controller
     {
+        /// <summary>
+        /// Controller to intialise the home model and
+        ///  return the Home Index view
+        /// </summary>
+        /// <returns>View : Home/Index</returns>
         public ActionResult Index()
         {
             var model = new SearchModel();
             model.cityDetails = getAllCityDetails();
             return View(model);
         }
+        /// <summary>
+        /// Controller to return the Contact Us view
+        /// </summary>
+        /// <returns>View : Home/ContactUs</returns>
         public ActionResult ContactUs()
         {
             return View();
         }
+        /// <summary>
+        /// Retrieves the Login Partial view & Intialises the UserLogin Model
+        /// </summary>
+        /// <returns>PartialView : Home/Login</returns>
         public PartialViewResult Login()
         {
             var model = new UserLogin();
             return PartialView("Login", model);
         }
+        /// <summary>
+        /// Controller to enable the user to login save their search details
+        /// </summary>
+        /// <param name="searchDetails">Search Model with users search details</param>
+        /// <returns>Partial View : Home/SearchLogin</returns>
         public PartialViewResult SearchLogin(SearchModel searchDetails)
         {
             SearchUserLogin model = new SearchUserLogin();
@@ -34,6 +52,11 @@ namespace CERBookingSystem.Controllers
             model.searchModel = searchDetails;
             return PartialView("SearchLogin", model);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Login(UserLogin user)
         {

@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using CERBookingSystem.Models;
 using CERBookingSystemDAL;
 using CERBookingSystemBLL;
+using System.Net.Mail;
+using System.Net;
 
 namespace CERBookingSystem.Controllers
 {
@@ -168,6 +170,7 @@ namespace CERBookingSystem.Controllers
                 BookingBLL.addBooking(dalBookingReturn);
                 TrainRouteBLL.updateSeatNumber(bookingDetails.firstClass, bookingDetails.numberOfPassengers, bookingDetails.selectedReturn.TrainRouteId);
             }
+            //sendConfirmEmail(bookingDetails);
             return RedirectToAction("UserBookings","Booking");
         }
 
@@ -187,6 +190,25 @@ namespace CERBookingSystem.Controllers
                 TrainRouteBLL.updateSeatNumber(booking.FirstClass, negNoInparty, booking.TrainRouteId);
             }
             return RedirectToAction("UserBookings", "Booking");
+        }
+
+        public void sendConfirmEmail(NewBookingModel bookingDetails)
+        {
+            User user = UserBLL.getUser(User.Identity.Name);
+            var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
+            var message = new MailMessage();
+            message.To.Add(new MailAddress(user.EmailAddress));  // replace with valid value 
+            message.From = new MailAddress("cer@gmail.com");  // replace with valid value
+            message.Subject = "China Express Railways Booking Confirmation.";
+            message.Body = String.Format(body,"China Express Railways", "Thank you for your booking, Enjoy your journey!");
+            message.IsBodyHtml = true;
+
+            var client = new SmtpClient("smtp.gmail.com", 587)
+            {
+                Credentials = new NetworkCredential("andymehaffy2@gmail.com", "Graham@2015"),
+                EnableSsl = true
+            };
+            client.Send(message);
         }
     }
 }
