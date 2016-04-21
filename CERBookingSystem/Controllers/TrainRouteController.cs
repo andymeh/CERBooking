@@ -11,14 +11,27 @@ namespace CERBookingSystem.Controllers
 {
     public class TrainRouteController : Controller
     {
+        /// <summary>
+        /// Retrive AddNewTrain Form View
+        /// </summary>
+        /// <returns></returns>
         public ActionResult AddNewTrain()
         {
             return View();
         }
+        /// <summary>
+        /// Retrieve AddNewCity View
+        /// </summary>
+        /// <returns></returns>
         public ActionResult AddNewCity()
         {
             return View();
         }
+        /// <summary>
+        /// Retrieve AddNewRoute View
+        /// Initialise model
+        /// </summary>
+        /// <returns></returns>
         public ActionResult AddNewRoute()
         {
             var model = new newRoute();
@@ -26,6 +39,11 @@ namespace CERBookingSystem.Controllers
             model.cityDetails = getAllCityDetails();
             return View(model);
         }
+        /// <summary>
+        /// Retrieve AddNewTrainRoute View
+        /// Initialise model
+        /// </summary>
+        /// <returns></returns>
         public ActionResult AddNewTrainRoute()
         {
             var model = new newTrainRoute();
@@ -35,7 +53,10 @@ namespace CERBookingSystem.Controllers
             model.trainDetails = getAllTrainDetail();
             return View(model);
         }
-
+        /// <summary>
+        /// Get a list of train detail Models
+        /// </summary>
+        /// <returns></returns>
         private List<TrainDetail> getAllTrainDetail()
         {
             List<Train> allTrains = TrainBLL.getAllTrains();
@@ -52,6 +73,10 @@ namespace CERBookingSystem.Controllers
             return allTrainDetail;
         }
 
+        /// <summary>
+        /// Get all
+        /// </summary>
+        /// <returns>List of route detail model</returns>
         private List<RouteDetail> getAllRouteDetail()
         {
             List<Route> allRoutes = RouteBLL.getAllRoutes();
@@ -69,7 +94,11 @@ namespace CERBookingSystem.Controllers
             }
             return allRouteDetail.OrderBy(x => x.sourceCityName).ThenBy(x => x.destCityName).ThenBy(x => x.departTime).ThenBy(x => x.arrivalTime).ToList();
         }
-
+        /// <summary>
+        /// Adds the new train to the database
+        /// </summary>
+        /// <param name="train"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         public ActionResult AddNewTrain(newTrain train)
@@ -86,6 +115,12 @@ namespace CERBookingSystem.Controllers
             }
             return View(train);
         }
+        /// <summary>
+        /// Checks if all input data is valid
+        /// Adds the new route to the database
+        /// </summary>
+        /// <param name="route"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         public ActionResult AddNewRoute(newRoute route)
@@ -107,6 +142,11 @@ namespace CERBookingSystem.Controllers
             ViewData["Message"] = "Success";
             return View(model);
         }
+        /// <summary>
+        /// Verifies all the input information and adds the new train route to the database
+        /// </summary>
+        /// <param name="_trainRoute"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         public ActionResult AddNewTrainRoute(newTrainRoute _trainRoute)
@@ -132,6 +172,11 @@ namespace CERBookingSystem.Controllers
             ViewData["Message"] = "Success";
             return View(model);
         }
+        /// <summary>
+        /// Verifies all the input information and adds the new city to the database
+        /// </summary>
+        /// <param name="_trainRoute"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         public ActionResult AddNewCity(newCity _city)
@@ -153,7 +198,10 @@ namespace CERBookingSystem.Controllers
             }
             return View(_city);
         }
-
+        /// <summary>
+        /// Retrieves all of the cities from the database
+        /// </summary>
+        /// <returns></returns>
         public List<cityDetails> getAllCityDetails()
         {
             List<cityDetails> allCitiesDetail = new List<cityDetails>();

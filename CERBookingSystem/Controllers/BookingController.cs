@@ -27,11 +27,17 @@ namespace CERBookingSystem.Controllers
         {
             return RedirectToAction("Index", "Home");
         }
+        /// <summary>
+        /// Retrieves the User Bookings view
+        /// </summary>
+        /// <returns>View : Booking/UserBookings</returns>
         public ActionResult UserBookings()
         {
             var model = new List<BookingModel>();
             User user = UserBLL.getUser(User.Identity.Name);
             List<Booking> userBookings = BookingBLL.getAllBookingsForUser(user.UserId);
+            
+            //Loop through each booking made by the user to convert tho BookingModel
             foreach(var b in userBookings)
             {
                 TrainRoute tr = TrainRouteBLL.GetTrainRoute(b.TrainRouteId);
@@ -51,10 +57,11 @@ namespace CERBookingSystem.Controllers
         }
         
         /// <summary>
-        /// 
+        /// HttpPost
+        /// Initialise the Booking view with the data from the train routes selected by the user
         /// </summary>
-        /// <param name="newBooking"></param>
-        /// <returns></returns>
+        /// <param name="newBooking">Class : SearchModel</param>
+        /// <returns>View : Booking/NewBooking</returns>
         [HttpPost]
         public ActionResult NewBooking(SearchModel newBooking)
         {
@@ -76,16 +83,19 @@ namespace CERBookingSystem.Controllers
                 NewBookingModel nBooking = new NewBookingModel();
                 nBooking.isReturn = false;
                 double totalPrice = 0;
-
+                
+                //Fill the NewBookingModel values
                 TrainRoute outTrainRoute = TrainRouteBLL.GetTrainRoute(newBooking.selectedOutbound);
                 Route outRoute = RouteBLL.getRoute(outTrainRoute.RouteId);
                 nBooking.numberOfPassengers = newBooking.bookingDetails.numberOfPassengers;
                 nBooking.dateOutbound = newBooking.bookingDetails.dateOutbound;
                 nBooking.dateReturn = newBooking.bookingDetails.dateReturn;
 
+                //get the user from the database using their email address
                 User user = UserBLL.getUser(User.Identity.Name);
                 nBooking.usersDetails = new userDetail{userId = user.UserId, forename = user.Forename, surname = user.Surname, emailAddress = user.EmailAddress };
 
+                //Convert the selected trainroute to a SearchTrainRoute class
                 nBooking.selectedOutbound = new SearchTrainRoute
                 {
                     TrainRouteId = outTrainRoute.TrainRouteId,
@@ -132,14 +142,15 @@ namespace CERBookingSystem.Controllers
                 
                 return View(nBooking);
             }
+            //return the user if the Model state is not valid
             return View(Url.RequestContext.ToString(), newBooking);
         }
 
         /// <summary>
-        /// 
+        /// Add the booking to the database
         /// </summary>
-        /// <param name="bookingDetails"></param>
-        /// <returns></returns>
+        /// <param name="bookingDetails">NewBookingModel : Requires User Details and TrainRoute details</param>
+        /// <returns>View : User/UserBookings</returns>
         [HttpPost]
         public ActionResult ConfirmBooking(NewBookingModel bookingDetails)
         {
@@ -152,12 +163,13 @@ namespace CERBookingSystem.Controllers
                 DateBooked = DateTime.Now,
                 FirstClass = bookingDetails.firstClass
             };
-
+            //insert booking into datebase
             BookingBLL.addBooking(dalBookingOutBound);
             TrainRouteBLL.updateSeatNumber(bookingDetails.firstClass, bookingDetails.numberOfPassengers, bookingDetails.selectedOutbound.TrainRouteId);
 
             if (bookingDetails.isReturn)
             {
+
                 Booking dalBookingReturn = new Booking
                 {
                     TrainRouteId = bookingDetails.selectedReturn.TrainRouteId,
@@ -192,6 +204,10 @@ namespace CERBookingSystem.Controllers
             return RedirectToAction("UserBookings", "Booking");
         }
 
+        /// <summary>
+        /// Send email confirmation to the user
+        /// </summary>
+        /// <param name="bookingDetails"></param>
         public void sendConfirmEmail(NewBookingModel bookingDetails)
         {
             User user = UserBLL.getUser(User.Identity.Name);
@@ -203,6 +219,7 @@ namespace CERBookingSystem.Controllers
             message.Body = String.Format(body,"China Express Railways", "Thank you for your booking, Enjoy your journey!");
             message.IsBodyHtml = true;
 
+            //Connect to the google smtp client
             var client = new SmtpClient("smtp.gmail.com", 587)
             {
                 Credentials = new NetworkCredential("andymehaffy2@gmail.com", "Graham@2015"),

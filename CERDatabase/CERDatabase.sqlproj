@@ -76,4 +76,7 @@
   <ItemGroup>
     <RefactorLog Include="CERDatabase.refactorlog" />
   </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Script.PostDeploymentInsertCities.sql" />
+  </ItemGroup>
 </Project>

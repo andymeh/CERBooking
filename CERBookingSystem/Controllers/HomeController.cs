@@ -116,8 +116,9 @@ namespace CERBookingSystem.Controllers
                SearchModel searchDetails = new SearchModel();
                 List<TrainRoute> outboundTrainRoutes = new List<TrainRoute>();
                 List<TrainRoute> returnTrainRoutes = new List<TrainRoute>();
-                searchDetails.bookingDetails = new NewBookingModel();
 
+                //initialise and fill the Sea
+                searchDetails.bookingDetails = new NewBookingModel();
                 searchDetails.cityDetails = getAllCityDetails();
                 searchDetails.OutboundTrainRoutes = new List<SearchTrainRoute>();
                 searchDetails.ReturnTrainRoutes = new List<SearchTrainRoute>();
@@ -125,6 +126,7 @@ namespace CERBookingSystem.Controllers
 
                 searchDetails.bookingDetails = searchTerms.bookingDetails;
 
+                //get city from the database
                 City sourceCity = CitiesBLL.getCity(searchTerms.bookingDetails.sourceCityId);
                 searchDetails.sourceCity = sourceCity.CityName;
                 searchDetails.bookingDetails.numberOfPassengers = searchTerms.bookingDetails.numberOfPassengers;
@@ -184,6 +186,7 @@ namespace CERBookingSystem.Controllers
                             });
                         }
                     }
+                    //ensure that trainroutes are available for the users search
                     if(searchDetails.OutboundTrainRoutes.Count > 0)
                     {
                         if (!searchDetails.bookingDetails.isReturn)
@@ -212,6 +215,10 @@ namespace CERBookingSystem.Controllers
             searchTerms.cityDetails = getAllCityDetails();
             return View("Index", searchTerms);
         }
+        /// <summary>
+        /// Retrieve all the cities in the database
+        /// </summary>
+        /// <returns></returns>
         public List<cityDetails> getAllCityDetails()
         {
             List<cityDetails> allCitiesDetail = new List<cityDetails>();
